@@ -498,6 +498,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:TestWebAPI.Controllers.MoviesController.IsNumberSmallerThanFive(System.Int32)">
+            <summary>
+            Returns some other strings
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:TestWebAPI.Controllers.MoviesController.GetMovie(System.Int32)">
             <summary>
             Get a movie by id

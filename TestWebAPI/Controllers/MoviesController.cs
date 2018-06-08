@@ -50,6 +50,23 @@ namespace TestWebAPI.Controllers
         }
 
         /// <summary>
+        /// Returns some other strings
+        /// </summary>
+        /// <returns></returns>
+        [Route("api/movies/GetStrings")]
+        public HttpResponseMessage IsNumberSmallerThanFive(int id)
+        {
+            if ( id <= 5 )
+            {
+              return  Request.CreateResponse(HttpStatusCode.Accepted , "Correct");
+            }
+            else
+            {
+             return   Request.CreateErrorResponse(HttpStatusCode.NotFound , "Id not found");
+            }
+        }
+
+        /// <summary>
         /// Get a movie by id
         /// </summary>
         /// <param name="id"></param>
