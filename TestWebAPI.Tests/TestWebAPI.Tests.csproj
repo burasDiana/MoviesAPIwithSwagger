@@ -114,6 +114,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
+      <Project>{A9DBF230-972D-47BE-9F7A-2B57D9F5570C}</Project>
+      <Name>DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TestWebAPI\TestWebAPI.csproj">
       <Project>{0c0e5054-a735-4f4a-bc51-2dd781b3a5a7}</Project>
       <Name>TestWebAPI</Name>

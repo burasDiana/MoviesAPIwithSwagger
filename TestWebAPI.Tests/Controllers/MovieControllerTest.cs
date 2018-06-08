@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Web.Http;
 using TestWebAPI.Models;
 using System.Web.Http.Results;
+using DataAccess;
 
 namespace TestWebAPI.Tests.Controllers
 {
@@ -26,7 +27,7 @@ namespace TestWebAPI.Tests.Controllers
             var controller = new MoviesController();
             //Act
             var response = controller.GetMovie(1);
-            var contentResult = response as OkNegotiatedContentResult < Movie >;
+            var contentResult = response as OkNegotiatedContentResult < Movy >;
             //Assert
             Assert.IsNotNull(contentResult);
             Assert.IsNotNull(contentResult.Content);
