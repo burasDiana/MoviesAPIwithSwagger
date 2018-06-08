@@ -46,5 +46,22 @@ namespace TestWebAPI.Tests.Controllers
             // Assert  
             Assert.IsInstanceOfType(actionResult , typeof(NotFoundResult));
         }
+
+        /// <summary>
+        /// test if the the objects returned are of type string
+        /// </summary>
+        [TestMethod]
+        public void GetStrings()
+        {
+            //Arrange
+            var controller = new MoviesController();
+
+            //Act
+            var response = controller.GetStrings();
+
+            //Assert
+            Assert.IsInstanceOfType(response[1] , typeof(string));
+            Assert.AreEqual(4, response.Count);
+        }
     }
 }
