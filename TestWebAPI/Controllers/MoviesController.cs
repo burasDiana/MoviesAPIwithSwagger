@@ -50,20 +50,14 @@ namespace TestWebAPI.Controllers
         }
 
         /// <summary>
-        /// Returns some other strings
+        /// Returns current time
         /// </summary>
         /// <returns></returns>
-        [Route("api/movies/GetStrings")]
-        public HttpResponseMessage IsNumberSmallerThanFive(int id)
+        [Route("api/movies/GetTime")]
+        public HttpResponseMessage GetTime()
         {
-            if ( id <= 5 )
-            {
-              return  Request.CreateResponse(HttpStatusCode.Accepted , "Correct");
-            }
-            else
-            {
-             return   Request.CreateErrorResponse(HttpStatusCode.NotFound , "Id not found");
-            }
+            string time = DateTime.Now.Hour + ":" +  DateTime.Now.Minute;
+              return  Request.CreateResponse(HttpStatusCode.Accepted , time);
         }
 
         /// <summary>
