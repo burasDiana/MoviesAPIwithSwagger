@@ -21,6 +21,17 @@ namespace TestWebAPI.Security
             var basicAuthDict = new Dictionary<string , IEnumerable<string>>();
             basicAuthDict.Add(Name , new List<string>());
             operation.security = new IDictionary<string , IEnumerable<string>>[] { basicAuthDict };
+
+            if ( operation.parameters == null )
+                operation.parameters = new List<Parameter>();
+            operation.parameters.Add(new Parameter
+            {
+                name = "Accept-Version" ,
+                @in = "header" ,
+                type = "string" ,
+                description = "Client-Version" ,
+                required = true
+            });
         }
     }
 }

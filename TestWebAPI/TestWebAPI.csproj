@@ -225,6 +225,7 @@
     <Compile Include="Security\ApplyBasicAuth.cs" />
     <Compile Include="Security\BasicAuthenticationAttribute.cs" />
     <Compile Include="Security\UserSecurity.cs" />
+    <Compile Include="Security\VersionFilter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Movies.mdf" />

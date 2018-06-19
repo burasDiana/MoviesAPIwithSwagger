@@ -15,7 +15,8 @@ using TestWebAPI.Models;
 using TestWebAPI.Security;
 
 namespace TestWebAPI.Controllers
-{
+{   
+    [VersionFilter]
     public class MoviesController : ApiController
     {
         private List<string> list;
