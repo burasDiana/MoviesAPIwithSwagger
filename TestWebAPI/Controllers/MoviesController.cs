@@ -52,6 +52,17 @@ namespace TestWebAPI.Controllers
         }
 
         /// <summary>
+        /// Returns some strings
+        /// </summary>
+        /// <returns></returns>
+        [ExceptionFilter]
+        [Route("api/Movies/Calculate")]
+        public string Calculate(int a, int b)
+        {
+            return (a / b).ToString();
+        }
+
+        /// <summary>
         /// Returns current time
         /// </summary>
         /// <returns></returns>
