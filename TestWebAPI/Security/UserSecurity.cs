@@ -8,6 +8,14 @@ namespace TestWebAPI.Security
 {
     public class UserSecurity
     {
+        public static string GetPasswordForUser(string username)
+        {
+            using ( MoviesEntities db = new MoviesEntities() )
+            {
+                return db.Users.FirstOrDefault(u => u.Username.Equals(username , StringComparison.Ordinal)).Password;
+            }
+        }
+
         public static bool Login(string username, string password)
         {
         using(MoviesEntities entities = new MoviesEntities() )

@@ -23,22 +23,47 @@ namespace TestWebAPI.Security
             }
             else //if header exists, retrieve username and password
             {
+                #region basic auth implementation
                 // FORMAT=> username:password in base 64
+                //string authToken = actionContext.Request.Headers.Authorization.Parameter;
+                //string decodedAuthToken = Encoding.UTF8.GetString( Convert.FromBase64String(authToken));
+                //string[] upArray = decodedAuthToken.Split(':');
+                //string username = upArray[0];
+                //string password = upArray[1];
+
+                //if ( UserSecurity.Login(username , password) )
+                //{
+                //    Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(username), null);
+                //}
+                //else
+                //{
+                //    actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized, "Unauthorized request");
+                //}
+                #endregion
+
                 string authToken = actionContext.Request.Headers.Authorization.Parameter;
-                string decodedAuthToken = Encoding.UTF8.GetString( Convert.FromBase64String(authToken));
+                string decodedAuthToken = Encoding.UTF8.GetString(Convert.FromBase64String(authToken));
                 string[] upArray = decodedAuthToken.Split(':');
                 string username = upArray[0];
-                string password = upArray[1];
+                string encodedbytes = upArray[1];
+                string password = UserSecurity.GetPasswordForUser(username);
+                string realm = "mdk";
 
-                if ( UserSecurity.Login(username , password) )
+                var hash = String.Format(
+                    "{0}:{1}:{2}" ,
+                    username,
+                    password,
+                    realm).ToMd5Hash();
+
+                if(encodedbytes.Equals(hash, StringComparison.Ordinal) )
                 {
-                    Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(username), null);
+                    Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(username) , null);
                 }
                 else
                 {
-                    actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized, "Unauthorized request");
+                    actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized , "Unauthorized request");
                 }
-                
+
             }
         }
     }
