@@ -34,6 +34,7 @@ namespace TestWebAPI.Controllers
         /// </returns>
         // GET: api/Movies
         [BasicAuthentication]
+        //[Route("~/v1/movies")]
         [SwaggerResponseExample(HttpStatusCode.OK , typeof(MovieExamples))]
         public IQueryable<Movy> GetMovies()
         {

@@ -34,7 +34,7 @@ namespace TestWebAPI
                         // hold additional metadata for an API. Version and title are required but you can also provide
                         // additional fields by chaining methods off SingleApiVersion.
                         //
-                        c.SingleApiVersion("v1" , "TestWebAPI").Description("This is an API for testing purposes which performs CRUD operations on a movie table in a local SQL database").TermsOfService("Terms of service");
+                        c.SingleApiVersion("v1" , "TestWebAPI").Contact(contact=> contact.Email("Me@me.com").Name("Diana Buras").Url("http://mentordanmark.dk")).Description("This is an API for testing purposes which performs CRUD operations on a movie table in a local SQL database").TermsOfService("Terms of service").License(license => license.Url("mylicenseurl"));
                         c.IncludeXmlComments(string.Format(@"{0}\bin\TestWebAPI.XML" ,
                            System.AppDomain.CurrentDomain.BaseDirectory));
                         c.OperationFilter<ExamplesOperationFilter>();
@@ -49,11 +49,11 @@ namespace TestWebAPI
                         // returns an "Info" builder so you can provide additional metadata per API version.
                         //
                         //c.MultipleApiVersions(
-                        //    (apiDesc, targetApiVersion) => ResolveVersionSupportByRouteConstraint(apiDesc, targetApiVersion),
+                        //    (apiDesc , targetApiVersion) => { return apiDesc.RelativePath.ToLower().Contains(targetApiVersion.ToLower()); } ,
                         //    (vc) =>
                         //    {
-                        //        vc.Version("v2", "Swashbuckle Dummy API V2");
-                        //        vc.Version("v1", "Swashbuckle Dummy API V1");
+                        //        vc.Version("v2" , "Movies API V2").Description("This is the latest version").Contact().License().TermsOfService("TOS");
+                        //        vc.Version("v1" , "Movies API V1");
                         //    });
 
                         // You can use "BasicAuth", "ApiKey" or "OAuth2" options to describe security schemes for the API.
@@ -238,7 +238,7 @@ namespace TestWebAPI
                         // a discovery URL for each version. This provides a convenient way for users to browse documentation
                         // for different API versions.
                         //
-                        //c.EnableDiscoveryUrlSelector();
+                        c.EnableDiscoveryUrlSelector();
 
                         // If your API supports the OAuth2 Implicit flow, and you've described it correctly, according to
                         // the Swagger 2.0 specification, you can enable UI support as shown below.
