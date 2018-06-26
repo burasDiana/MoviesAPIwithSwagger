@@ -27,25 +27,40 @@ namespace ConsoleApp
             //Console.WriteLine("Logged in as: " + ParseAuthorizationHeader(Convert.ToBase64String(plainTextBytes)).Password);
 
             //Console.ReadLine();
-            Console.WriteLine(EncodeHashToBase64("Alex" , Generatehash("Alex" , "123" , "mdk")));
+            string key = GenerateRandomAlphaNumericKey(23);
+            Console.WriteLine("Random key is:" + key);
+            Console.WriteLine("To copy: " + EncodeHashToBase64("Alex" ,Generatehash("Alex" , "123" , key , "mdk"), key));
+           
             Console.ReadLine();
         }
-        private static string Generatehash(string username, string password, string realm)
+        private static string Generatehash(string username, string password, string key, string domain)
         {
             var hash = String.Format(
-                    "{0}:{1}:{2}" ,
+                    "{0}:{1}:{2}:{3}" ,
                     username ,
                     password ,
-                    realm).ToMd5Hash();
+                    key,
+                    domain).ToMd5Hash();
             return hash;
         }
 
-        private static string EncodeHashToBase64(string username, string hash)
+        private static string EncodeHashToBase64(string username, string hash, string key)
         {
-            string authstring = username + ":" +  hash;
+            string authstring = username + ":" +  key + ":" + hash;
+            Console.WriteLine(authstring);
             var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(authstring);
-            return System.Convert.ToBase64String(plainTextBytes);
+            var converted = System.Convert.ToBase64String(plainTextBytes);
+            Console.WriteLine("Converted string"+ converted);
+            return converted ;
 
+        }
+
+        private static string GenerateRandomAlphaNumericKey(int length)
+        {
+          Random random = new Random();
+          const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+          return new string(Enumerable.Repeat(chars , length)
+          .Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
         private static Credentials ParseAuthorizationHeader(string authHeader)

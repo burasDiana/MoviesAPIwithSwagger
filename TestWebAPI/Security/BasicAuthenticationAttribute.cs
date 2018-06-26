@@ -40,20 +40,22 @@ namespace TestWebAPI.Security
                 //    actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized, "Unauthorized request");
                 //}
                 #endregion
-
+                //authtoken format => username:randomkey:hash
                 string authToken = actionContext.Request.Headers.Authorization.Parameter;
                 string decodedAuthToken = Encoding.UTF8.GetString(Convert.FromBase64String(authToken));
-                string[] upArray = decodedAuthToken.Split(':');
+                string[]  upArray = decodedAuthToken.Split(new[] { ':' });
                 string username = upArray[0];
-                string encodedbytes = upArray[1];
+                string key = upArray[1];
                 string password = UserSecurity.GetPasswordForUser(username);
-                string realm = "mdk";
+                string encodedbytes = upArray[2];
+                string domain = "mdk";
 
                 var hash = String.Format(
-                    "{0}:{1}:{2}" ,
+                    "{0}:{1}:{2}:{3}" ,
                     username,
                     password,
-                    realm).ToMd5Hash();
+                    key,
+                    domain).ToMd5Hash();
 
                 if(encodedbytes.Equals(hash, StringComparison.Ordinal) )
                 {
