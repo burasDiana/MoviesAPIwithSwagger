@@ -17,6 +17,7 @@ using TestWebAPI.Security;
 namespace TestWebAPI.Controllers
 {   
     [VersionFilter]
+    [RoutePrefix("api/v1/movies")]
     public class MoviesController : ApiController
     {
         private List<string> list;
@@ -34,7 +35,8 @@ namespace TestWebAPI.Controllers
         /// </returns>
         // GET: api/Movies
         [BasicAuthentication]
-        [Route("api/v1/movies")]
+        //[Route("api/v1/movies")]
+        [Route]
         [SwaggerResponseExample(HttpStatusCode.OK , typeof(MovieExamples))]
         public IQueryable<Movy> GetMovies()
         {
@@ -46,7 +48,8 @@ namespace TestWebAPI.Controllers
         /// </summary>
         /// <returns></returns>
         //[Route("api/Movies/GetStrings")]
-        [Route("api/v1/movies/GetStrings")]
+        //[Route("api/v1/movies/GetStrings")]
+        [Route("GetStrings")]
         public List<string> GetStrings()
         {
             list = new List<string>() { "abc" , "123" , "456" , "butter" };
@@ -59,7 +62,8 @@ namespace TestWebAPI.Controllers
         /// <returns></returns>
         [ExceptionFilter]
         //[Route("api/Movies/Calculate")]
-        [Route("api/v1/movies/Calculate")]
+        //[Route("api/v1/movies/Calculate")]
+        [Route("Calculate")]
         public string Calculate(int a, int b)
         {
             return (a / b).ToString();
@@ -69,7 +73,8 @@ namespace TestWebAPI.Controllers
         /// Returns current time
         /// </summary>
         /// <returns></returns>
-        [Route("api/Movies/GetTime")]
+        //[Route("api/Movies/GetTime")]
+        [Route("GetTime")]
         public HttpResponseMessage GetTime()
         {
             string time = DateTime.Now.Hour + ":" +  DateTime.Now.Minute;
@@ -87,7 +92,8 @@ namespace TestWebAPI.Controllers
         [SwaggerResponse(201, "Returns the created recommendation", typeof(MovieRecommendation))]
         [SwaggerResponse(400 , "If the movie corresponding to the id is null")]
         //[SwaggerResponseExample(HttpStatusCode.OK , typeof(MovieRecommendation))]
-        [Route("api/Movies/GetMovieRecommendation")]
+        //[Route("api/Movies/GetMovieRecommendation")]
+        [Route("GetMovieRecommendation")]
         public IHttpActionResult GetMovieRecommendation(int id)
         {
             var movie = db.Movies.FirstOrDefault(m => m.ID == id);
@@ -120,6 +126,7 @@ namespace TestWebAPI.Controllers
         [BasicAuthentication]
         [ResponseType(typeof(Movie))]
         [SwaggerResponseExample(HttpStatusCode.OK , typeof(MovieExamples))]
+        [Route("{id}")]
         public IHttpActionResult GetMovie(int id)
         {
             using (MoviesEntities db = new MoviesEntities() )
