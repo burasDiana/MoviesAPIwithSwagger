@@ -19,7 +19,7 @@ namespace TestWebAPI.Security
         {
             if(actionContext.Request.Headers.Authorization == null )
             {
-                actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized, "Unauthorized request");
+                actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized, "Unauthorized request, no authorization header provided");
             }
             else //if header exists, retrieve username and password
             {
@@ -44,6 +44,13 @@ namespace TestWebAPI.Security
                 string authToken = actionContext.Request.Headers.Authorization.Parameter;
                 string decodedAuthToken = Encoding.UTF8.GetString(Convert.FromBase64String(authToken));
                 string[]  upArray = decodedAuthToken.Split(new[] { ':' });
+
+                if ( upArray.Count() != 3 )
+                {
+                    actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized , "Authorization header format incorrect, please send in the following format  username:key:hash ");
+                    return;
+                }
+
                 string username = upArray[0];
                 string key = upArray[1];
                 string password = UserSecurity.GetPasswordForUser(username);
@@ -63,7 +70,7 @@ namespace TestWebAPI.Security
                 }
                 else
                 {
-                    actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized , "Unauthorized request");
+                    actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized , "Unauthorized request, password did not match");
                 }
 
             }
