@@ -34,7 +34,7 @@ namespace TestWebAPI
                         // hold additional metadata for an API. Version and title are required but you can also provide
                         // additional fields by chaining methods off SingleApiVersion.
                         //
-                        c.SingleApiVersion("v1" , "TestWebAPI").Contact(contact=> contact.Email("Me@me.com").Name("Diana Buras").Url("http://mentordanmark.dk")).Description("This is an API for testing purposes which performs CRUD operations on a movie table in a local SQL database").TermsOfService("Terms of service").License(license => license.Url("mylicenseurl"));
+                        //c.SingleApiVersion("v1" , "TestWebAPI").Contact(contact=> contact.Email("Me@me.com").Name("Diana Buras").Url("http://mentordanmark.dk")).Description("This is an API for testing purposes which performs CRUD operations on a movie table in a local SQL database").TermsOfService("Terms of service").License(license => license.Url("mylicenseurl"));
                         c.IncludeXmlComments(string.Format(@"{0}\bin\TestWebAPI.XML" ,
                            System.AppDomain.CurrentDomain.BaseDirectory));
                         c.OperationFilter<ExamplesOperationFilter>();
@@ -48,13 +48,13 @@ namespace TestWebAPI
                         // included in the docs for a given API version. Like "SingleApiVersion", each call to "Version"
                         // returns an "Info" builder so you can provide additional metadata per API version.
                         //
-                        //c.MultipleApiVersions(
-                        //    (apiDesc , targetApiVersion) => { return apiDesc.RelativePath.ToLower().Contains(targetApiVersion.ToLower()); } ,
-                        //    (vc) =>
-                        //    {
-                        //        vc.Version("v2" , "Movies API V2").Description("This is the latest version").Contact().License().TermsOfService("TOS");
-                        //        vc.Version("v1" , "Movies API V1");
-                        //    });
+                        c.MultipleApiVersions(
+                            (apiDesc , targetApiVersion) => { return apiDesc.RelativePath.ToLower().Contains(targetApiVersion.ToLower()); } ,
+                            (vc) =>
+                            {
+                                vc.Version("v2" , "Movies API V2").Description("This is the latest version").Contact(cc=> cc.Name("Banana2"));
+                                vc.Version("v1" , "Movies API V1").Description("This is the old version").Contact(cc => cc.Name("Banana1"));
+                            });
 
                         // You can use "BasicAuth", "ApiKey" or "OAuth2" options to describe security schemes for the API.
                         // See https://github.com/swagger-api/swagger-spec/blob/master/versions/2.0.md for more details.

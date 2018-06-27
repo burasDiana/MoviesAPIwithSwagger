@@ -8,6 +8,7 @@ using DataAccess;
 
 namespace TestWebAPI.Controllers
 {
+    [RoutePrefix("api/v2/users")]
     public class UsersController : ApiController
     {
         /// <summary>
@@ -21,7 +22,7 @@ namespace TestWebAPI.Controllers
         //        return entities.Users.ToList();
         //    }
         //}
-
+        [Route("")]
         public IHttpActionResult Get()
         {
             using ( MoviesEntities entities = new MoviesEntities() )
@@ -43,12 +44,13 @@ namespace TestWebAPI.Controllers
         //        return entities.Users.FirstOrDefault(u => u.Id == id);
         //    }
         //}
+        [Route("{id}")]
         public IHttpActionResult Get(int id)
         {
             using ( MoviesEntities entities = new MoviesEntities() )
             {
                 var user = entities.Users.FirstOrDefault(u => u.Id == id);
-                if(user == null )
+                if ( user == null )
                 {
                     return Content(HttpStatusCode.NotFound , "User not found");
                 }

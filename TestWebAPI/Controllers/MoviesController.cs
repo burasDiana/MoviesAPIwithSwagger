@@ -34,7 +34,7 @@ namespace TestWebAPI.Controllers
         /// </returns>
         // GET: api/Movies
         [BasicAuthentication]
-        //[Route("~/v1/movies")]
+        [Route("api/v1/movies")]
         [SwaggerResponseExample(HttpStatusCode.OK , typeof(MovieExamples))]
         public IQueryable<Movy> GetMovies()
         {
@@ -45,7 +45,8 @@ namespace TestWebAPI.Controllers
         /// Returns some strings
         /// </summary>
         /// <returns></returns>
-        [Route("api/Movies/GetStrings")]
+        //[Route("api/Movies/GetStrings")]
+        [Route("api/v1/movies/GetStrings")]
         public List<string> GetStrings()
         {
             list = new List<string>() { "abc" , "123" , "456" , "butter" };
@@ -57,7 +58,8 @@ namespace TestWebAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [ExceptionFilter]
-        [Route("api/Movies/Calculate")]
+        //[Route("api/Movies/Calculate")]
+        [Route("api/v1/movies/Calculate")]
         public string Calculate(int a, int b)
         {
             return (a / b).ToString();
