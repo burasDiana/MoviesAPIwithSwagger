@@ -17,14 +17,20 @@ namespace TestWebAPI.Tests.Controllers
     [TestClass]
     public class MovieControllerTest
     {
+        MoviesController controller;
+        [TestInitialize]
+        public void Initialize()
+        {
+            //Arrange
+            controller = new MoviesController();
+        }
         /// <summary>
         /// test the title of the movie object returned matches the one in the database at id = 1
         /// </summary>
         [TestMethod]
         public void GetMovieById()
         {
-            //Arrange
-            var controller = new MoviesController();
+            
             //Act
             var response = controller.GetMovie(1);
             var contentResult = response as OkNegotiatedContentResult < Movy >;
@@ -39,10 +45,41 @@ namespace TestWebAPI.Tests.Controllers
         [TestMethod]
         public void GetMovieNotFound()
         {
-            //Arrange
-            var controller = new MoviesController();
+           
             // Act  
             IHttpActionResult actionResult = controller.GetMovie(100);
+            // Assert  
+            Assert.IsInstanceOfType(actionResult , typeof(NotFoundResult));
+        }
+
+        /// <summary>
+        /// test if the movie recommendation
+        /// </summary>
+        [TestMethod]
+        public void GetMovieRecommendation_ShouldReturnRecommendation()
+        {
+            
+            //Act
+            var response = controller.GetMovieRecommendation(3);
+            var contentResult = response as OkNegotiatedContentResult<MovieRecommendation>;
+
+            // Assert  
+            Assert.IsNotNull(contentResult);
+            Assert.AreEqual(3,contentResult.Content.ID);
+            Assert.AreEqual("A night in Paris" , contentResult.Content.Title);
+            Assert.IsTrue(contentResult.Content.recommendedMvs.Count == 5);
+        }
+
+        /// <summary>
+        /// test ifthe return type is not found when providing an inexistant id
+        /// </summary>
+        [TestMethod]
+        public void GetMovieRecommendation_ShouldReturnNotFound()
+        {
+
+            //Act
+            IHttpActionResult actionResult = controller.GetMovieRecommendation(1928);
+
             // Assert  
             Assert.IsInstanceOfType(actionResult , typeof(NotFoundResult));
         }
@@ -53,8 +90,6 @@ namespace TestWebAPI.Tests.Controllers
         [TestMethod]
         public void GetStrings()
         {
-            //Arrange
-            var controller = new MoviesController();
 
             //Act
             var response = controller.GetStrings();
