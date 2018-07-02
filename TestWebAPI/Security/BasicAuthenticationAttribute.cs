@@ -14,6 +14,7 @@ namespace TestWebAPI.Security
 {
     public class BasicAuthenticationAttribute : AuthorizationFilterAttribute
     {
+        private static List<string> knowncodesforAlex = new List<string>() {"2LO1AASEOXUQP5LJ8KOFYW5"};
         //client sents credidentials in the authentication header
         public override void OnAuthorization(HttpActionContext actionContext)
         {
@@ -51,11 +52,22 @@ namespace TestWebAPI.Security
                     return;
                 }
 
+               
                 string username = upArray[0];
                 string key = upArray[1];
                 string password = UserSecurity.GetPasswordForUser(username);
                 string encodedbytes = upArray[2];
                 string domain = "mdk";
+
+                if ( knowncodesforAlex.Contains(key) )
+                {
+                    actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized , "Unique key already exists. Please generate a new key according to the agreed method.");
+                    return;
+                }
+                else
+                {
+                    knowncodesforAlex.Add(key);
+                }
 
                 var hash = String.Format(
                     "{0}:{1}:{2}:{3}" ,
