@@ -24,11 +24,29 @@ namespace TestWebAPI.Tests.Controllers
             //Arrange
             controller = new MoviesController();
         }
+
         /// <summary>
-        /// test the title of the movie object returned matches the one in the database at id = 1
+        /// test GetMovies returns a list of 13 movies where the first has the correct title
         /// </summary>
         [TestMethod]
-        public void GetMovieById()
+        public void Should_Return_List_Of_Movies()
+        {
+            //Act
+            var response = controller.GetMovies();
+            Assert.IsNotNull(response);
+            var contentResult = response as IQueryable<Movy>;
+            var movieList = contentResult.ToList();
+            //Assert
+            Assert.IsNotNull(contentResult);
+            Assert.IsTrue(movieList.Count == 13);
+            Assert.AreEqual("Star Warts" , movieList[0].Title);
+
+        }
+        /// <summary>
+        /// test GetMovie returns the title of the movie object returned matches the one in the database at id = 1
+        /// </summary>
+        [TestMethod]
+        public void Should_Return_Movie_With_Id()
         {
             
             //Act
@@ -40,10 +58,10 @@ namespace TestWebAPI.Tests.Controllers
             Assert.AreEqual("Star Warts" , contentResult.Content.Title);
         }
         /// <summary>
-        ///  test the response of the action method, when the movie is not found in the database.
+        ///  test GetMovie returns notfound when the movie does not exist.
         /// </summary>
         [TestMethod]
-        public void GetMovieNotFound()
+        public void Should_Return_Not_Found_Movie()
         {
            
             // Act  
@@ -53,10 +71,10 @@ namespace TestWebAPI.Tests.Controllers
         }
 
         /// <summary>
-        /// test if the movie recommendation
+        /// test GetMovieRecommendation returns recommendation with correct properties
         /// </summary>
         [TestMethod]
-        public void GetMovieRecommendation_ShouldReturnRecommendation()
+        public void Should_Return_Movie_Recommendation()
         {
             
             //Act
@@ -71,10 +89,10 @@ namespace TestWebAPI.Tests.Controllers
         }
 
         /// <summary>
-        /// test ifthe return type is not found when providing an inexistant id
+        /// test GetMovieRecommendation for notfound if movie id does not exist
         /// </summary>
         [TestMethod]
-        public void GetMovieRecommendation_ShouldReturnNotFound()
+        public void Should_Return_Not_Found_Recommendation()
         {
 
             //Act
@@ -85,10 +103,10 @@ namespace TestWebAPI.Tests.Controllers
         }
 
         /// <summary>
-        /// test if the the objects returned are of type string
+        /// test GetStrings if the the objects returned are of type string and their amount
         /// </summary>
         [TestMethod]
-        public void GetStrings()
+        public void Should_Return_Strings()
         {
 
             //Act
@@ -97,6 +115,38 @@ namespace TestWebAPI.Tests.Controllers
             //Assert
             Assert.IsInstanceOfType(response[1] , typeof(string));
             Assert.AreEqual(4, response.Count);
+        }
+
+        /// <summary>
+        /// tests Calculate  for exceptions
+        /// </summary>
+        [TestMethod]
+        public void Should_Throw_DivideBy0_Exception()
+        {
+            try
+            {
+                //Act
+                var response = controller.Calculate(1 , 0);
+                //Assert
+                Assert.Fail();
+            }
+            catch ( DivideByZeroException e )
+            {
+               //correctly threw exception
+            }
+        }
+
+        /// <summary>
+        /// tests Calculate for correct division
+        /// </summary>
+        [TestMethod]
+        public void Should_Divide_2_numbers()
+        {
+            //Act
+            var response = controller.Calculate(10 , 5);
+            //Assert
+            int nr;
+            Assert.AreEqual(int.Parse(response) , 2);
         }
     }
 }
