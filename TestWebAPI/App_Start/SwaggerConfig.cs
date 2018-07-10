@@ -52,8 +52,8 @@ namespace TestWebAPI
                             (apiDesc , targetApiVersion) => { return apiDesc.RelativePath.ToLower().Contains(targetApiVersion.ToLower()); } ,
                             (vc) =>
                             {
-                                vc.Version("v2" , "Movies API V2").Description("This is the latest version").Contact(cc=> cc.Name("Banana2"));
-                                vc.Version("v1" , "Movies API V1").Description("This is the old version").Contact(cc => cc.Name("Banana1"));
+                                vc.Version("v2" , "Movies API V2").Description("This is the latest version").Contact(cc=> cc.Name("Diana2"));
+                                vc.Version("v1" , "Movies API V1").Description("This is the old version").Contact(cc => cc.Name("Diana1"));
                             });
 
                         // You can use "BasicAuth", "ApiKey" or "OAuth2" options to describe security schemes for the API.
