@@ -37,10 +37,11 @@ namespace TestWebAPI.Controllers
         [BasicAuthentication]
         //[Route("api/v1/movies")]
         [Route]
+        [Queryable]
         [SwaggerResponseExample(HttpStatusCode.OK , typeof(MovieExamples))]
         public IQueryable<Movy> GetMovies()
         {
-            return db.Movies;
+            return db.Movies.AsQueryable();
         }
 
         /// <summary>
