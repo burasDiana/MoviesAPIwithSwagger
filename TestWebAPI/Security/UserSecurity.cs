@@ -35,5 +35,17 @@ namespace TestWebAPI.Security
                 return -1;
             }
         }
+
+        public static string GetUserName(int userId)
+        {
+            using (MoviesEntities entities = new MoviesEntities())
+            {
+                if (entities.Users.Any(u => u.Id.Equals(userId)))
+                {
+                    return entities.Users.FirstOrDefault(u => u.Id.Equals(userId)).Username;
+                }
+                return "not_Found";
+            }
+        }
     }
 }
