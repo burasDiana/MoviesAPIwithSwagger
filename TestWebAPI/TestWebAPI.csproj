@@ -224,6 +224,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -231,6 +232,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AuthReturnObject.cs" />
     <Compile Include="Models\MovieExamples.cs" />
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Models\MovieRecommendation.cs" />
@@ -239,6 +241,7 @@
     <Compile Include="Security\BasicAuthenticationAttribute.cs" />
     <Compile Include="Security\ExceptionFilter.cs" />
     <Compile Include="Security\HashExtension.cs" />
+    <Compile Include="Security\Token.cs" />
     <Compile Include="Security\UserSecurity.cs" />
     <Compile Include="Security\VersionFilter.cs" />
   </ItemGroup>
