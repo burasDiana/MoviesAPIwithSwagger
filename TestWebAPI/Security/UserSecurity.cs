@@ -23,5 +23,17 @@ namespace TestWebAPI.Security
                 return entities.Users.Any(u => u.Username.Equals(username , StringComparison.OrdinalIgnoreCase) && u.Password == password);
             }
         }
+
+        public static int GetUserId(string username)
+        {
+            using (MoviesEntities entities = new MoviesEntities())
+            {
+                if(entities.Users.Any(u => u.Username.Equals(username, StringComparison.OrdinalIgnoreCase)))
+                {
+                    return entities.Users.FirstOrDefault(u => u.Username.Equals(username, StringComparison.OrdinalIgnoreCase)).Id;
+                }
+                return -1;
+            }
+        }
     }
 }
