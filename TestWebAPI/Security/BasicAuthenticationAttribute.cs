@@ -18,7 +18,9 @@ namespace TestWebAPI.Security
         //client sents credidentials in the authentication header
         public override void OnAuthorization(HttpActionContext actionContext)
         {
-            if(actionContext.Request.Headers.Authorization == null )
+            //actionContext.ActionDescriptor.ActionName;
+            //actionContext.RequestContext.RouteData.Route.RouteTemplate;
+            if (actionContext.Request.Headers.Authorization == null )
             {
                 actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized, "Unauthorized request, no authorization header provided");
             }
