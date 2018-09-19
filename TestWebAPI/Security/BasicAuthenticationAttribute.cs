@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -19,30 +20,37 @@ namespace TestWebAPI.Security
         public override void OnAuthorization(HttpActionContext actionContext)
         {
             //actionContext.ActionDescriptor.ActionName;
-            //actionContext.RequestContext.RouteData.Route.RouteTemplate;
-            if (actionContext.Request.Headers.Authorization == null )
-            {
-                actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized, "Unauthorized request, no authorization header provided");
-            }
-            else //if header exists, retrieve username and password
-            {
-                #region basic auth implementation
-                // FORMAT=> username:password in base 64
-                string authToken = actionContext.Request.Headers.Authorization.Parameter;
-                string decodedAuthToken = Encoding.UTF8.GetString(Convert.FromBase64String(authToken));
-                string[] upArray = decodedAuthToken.Split(':');
-                string username = upArray[0];
-                string password = upArray[1];
 
-                if (UserSecurity.Login(username, password))
+            if (actionContext.RequestContext.RouteData.Route.RouteTemplate.Contains("token")) // can also use Headers.Authorization.scheme =Token or Basic
+            {
+                //authenticate if auth header is present
+                if (actionContext.Request.Headers.Authorization == null)
                 {
-                    Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(username), null);
+                    actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized, "Unauthorized request, no authorization header provided");
                 }
-                else
+                else //if header exists, retrieve username and password
                 {
-                    actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized, "Unauthorized request");
+                    #region basic auth implementation
+                    // FORMAT=> username:password in base 64
+                    string authToken = actionContext.Request.Headers.Authorization.Parameter;
+                    string decodedAuthToken = Encoding.UTF8.GetString(Convert.FromBase64String(authToken));
+                    string[] upArray = decodedAuthToken.Split(':');
+                    string username = upArray[0];
+                    string password = upArray[1];
+
+                    if (UserSecurity.Login(username, password))
+                    {
+                        Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(username), null);
+                        
+                    }
+                    else
+                    {
+                        actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized, "Unauthorized request");
+                    }
+                    #endregion
                 }
-                #endregion
+
+
 
                 #region authtoken with MD5 hash implementation
                 //authtoken format => username:randomkey:hash
@@ -90,6 +98,28 @@ namespace TestWebAPI.Security
                 //}
                 #endregion
 
+            }
+            else
+            {
+                if (actionContext.Request.Headers.Authorization == null)
+                {
+                    actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized, "Unauthorized request, no authorization header provided");
+                }
+                else
+                {
+                    string authToken = actionContext.Request.Headers.Authorization.Parameter;
+                    if (Token.TokenExists(authToken))
+                    {
+                        int userId =  Token.GetUserID(authToken);
+                        string userName = UserSecurity.GetUserName(userId);
+                        Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(userName), null);
+                    }
+                    else //token does not exist, authentication failed
+                    {
+                        actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized, "Unauthorized request, invalid or expired token");
+                    }
+
+                }
             }
         }
     }
