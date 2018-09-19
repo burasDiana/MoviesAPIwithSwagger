@@ -35,5 +35,15 @@ namespace TestWebAPI.Security
         {
             dict.Add(userId,Token);
         }
+
+        public static bool TokenExists(string token)
+        {
+            return dict.ContainsValue(token);
+        }
+
+        public static int GetUserID(string token)
+        {
+            return dict.FirstOrDefault(x => x.Value == token).Key;
+        }
     }
 }
