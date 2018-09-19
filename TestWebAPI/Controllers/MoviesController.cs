@@ -44,6 +44,16 @@ namespace TestWebAPI.Controllers
             return db.Movies.AsQueryable();
         }
 
+        //method for getting count of elements from Odata
+        //[EnableQuery]
+        //public IHttpActionResult GetMovies(ODataQueryOptions<Movy> queryOptions)
+        //{
+        //    var query = db.Movies.AsQueryable();
+        //    var queryResults = (IQueryable<Movy>)queryOptions.ApplyTo(query);
+        //    var cnt = Request.ODataProperties().TotalCount;
+        //    return Ok(new PageResult<Movy>(queryResults, null, Request.ODataProperties().TotalCount));
+        //}
+
         /// <summary>
         /// Returns some strings
         /// </summary>
