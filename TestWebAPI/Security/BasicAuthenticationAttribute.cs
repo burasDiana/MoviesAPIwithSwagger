@@ -45,7 +45,7 @@ namespace TestWebAPI.Security
                     }
                     else
                     {
-                        actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized, "Unauthorized request");
+                        actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized, "Invalid credentials");
                     }
                     #endregion
                 }
