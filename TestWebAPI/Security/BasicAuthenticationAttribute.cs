@@ -15,12 +15,8 @@ namespace TestWebAPI.Security
 {
     public class BasicAuthenticationAttribute : AuthorizationFilterAttribute
     {
-        private static List<string> knowncodesforAlex = new List<string>() {"2LO1AASEOXUQP5LJ8KOFYW5"};
-        //client sents credidentials in the authentication header
         public override void OnAuthorization(HttpActionContext actionContext)
         {
-            //actionContext.ActionDescriptor.ActionName;
-
             if (actionContext.RequestContext.RouteData.Route.RouteTemplate.Contains("token")) // can also use Headers.Authorization.scheme =Token or Basic
             {
                 //authenticate if auth header is present
@@ -50,9 +46,8 @@ namespace TestWebAPI.Security
                     #endregion
                 }
 
-
-
                 #region authtoken with MD5 hash implementation
+                //private static List<string> knowncodesforAlex = new List<string>() {"2LO1AASEOXUQP5LJ8KOFYW5"};
                 //authtoken format => username:randomkey:hash
                 //string authToken = actionContext.Request.Headers.Authorization.Parameter;
                 //string decodedAuthToken = Encoding.UTF8.GetString(Convert.FromBase64String(authToken));
