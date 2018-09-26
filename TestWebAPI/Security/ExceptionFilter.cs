@@ -26,7 +26,7 @@ namespace TestWebAPI.Security
             var response = new HttpResponseMessage(HttpStatusCode.InternalServerError)
             {   
                 Content = new StringContent("An unhandled exception was thrown by service.") ,
-                ReasonPhrase = "Internal Server Error.Please Contact your Administrator."
+                ReasonPhrase = exceptionMessage == string.Empty ?"Internal Server Error.Please Contact your Administrator.": exceptionMessage
             };
 
             if ( actionExecutedContext.Exception is DivideByZeroException )
