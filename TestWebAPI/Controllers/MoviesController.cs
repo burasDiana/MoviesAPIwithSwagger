@@ -34,7 +34,7 @@ namespace TestWebAPI.Controllers
         /// list of movies in the database
         /// </returns>
         // GET: api/Movies
-        [BasicAuthentication]
+        [BasicAuthentication(UserSecurity.UserType.Customer,UserSecurity.UserType.Admin)]
         //[Route("api/v1/movies")]
         [Route]
         [Queryable]
