@@ -15,8 +15,16 @@ namespace TestWebAPI.Security
 {
     public class BasicAuthenticationAttribute : AuthorizationFilterAttribute
     {
+        public UserSecurity.UserType[] UserTypes { get; set; }
+
+        public BasicAuthenticationAttribute(params UserSecurity.UserType[] _userTypes)
+        {
+            UserTypes = _userTypes;
+        }
+
         public override void OnAuthorization(HttpActionContext actionContext)
         {
+            
             if (actionContext.RequestContext.RouteData.Route.RouteTemplate.Contains("token")) // can also use Headers.Authorization.scheme =Token or Basic
             {
                 //authenticate if auth header is present
@@ -108,6 +116,10 @@ namespace TestWebAPI.Security
                         int userId =  Token.GetUserID(authToken);
                         string userName = UserSecurity.GetUserName(userId);
                         Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(userName), null);
+                        if (!UserRole_Allowed(UserSecurity.UserType.Customer))
+                        {
+                            actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Forbidden, "You do not have access to this function!");
+                        }
                     }
                     else //token does not exist, authentication failed
                     {
@@ -116,6 +128,13 @@ namespace TestWebAPI.Security
 
                 }
             }
+        }
+
+        private bool UserRole_Allowed(UserSecurity.UserType role)
+        {
+            if (UserTypes.Contains(role))
+                return true;
+            return false;
         }
     }
 }
