@@ -8,6 +8,13 @@ namespace TestWebAPI.Security
 {
     public class UserSecurity
     {
+        public enum UserType
+        {
+            Undefined = -1,
+            Admin = 0,
+            Customer = 1
+        }
+
         public static string GetPasswordForUser(string username)
         {
             using ( MoviesEntities db = new MoviesEntities() )
