@@ -10,23 +10,6 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            //Console.WriteLine("Insert username:");
-            //var username = Console.ReadLine();
-            //while (!CheckUsername(username) )
-            //{
-            //    Console.WriteLine("Username must be a valid email address:");
-            //    username = Console.ReadLine();
-            //}
-            //Console.WriteLine("Insert password:");
-            //var password = Console.ReadLine();
-
-            //var authToken = username + ":" + password;
-            //var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(authToken);
-
-            //Console.WriteLine("Logging in....");
-            //Console.WriteLine("Logged in as: " + ParseAuthorizationHeader(Convert.ToBase64String(plainTextBytes)).Password);
-
-            //Console.ReadLine();
             string key = GenerateRandomAlphaNumericKey(23);
             Console.WriteLine("Random key is:" + key);
             Console.WriteLine("To copy: " + EncodeHashToBase64("Alex" ,Generatehash("Alex" , "123" , key , "mdk"), key));
@@ -69,7 +52,6 @@ namespace ConsoleApp
 
             if (string.IsNullOrEmpty(credentials[0]) || string.IsNullOrEmpty(credentials[1]) )
                 return null;
-
             return new Credentials() { Username = credentials[0] , Password = credentials[1]  };
         }
 
