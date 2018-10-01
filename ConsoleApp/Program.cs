@@ -27,10 +27,19 @@ namespace ConsoleApp
             //Console.WriteLine("Logged in as: " + ParseAuthorizationHeader(Convert.ToBase64String(plainTextBytes)).Password);
 
             //Console.ReadLine();
-            string key = GenerateRandomAlphaNumericKey(23);
-            Console.WriteLine("Random key is:" + key);
-            Console.WriteLine("To copy: " + EncodeHashToBase64("Alex" ,Generatehash("Alex" , "123" , key , "mdk"), key));
-           
+
+            #region generate hash code
+
+            //string key = GenerateRandomAlphaNumericKey(23);
+            //Console.WriteLine("Random key is:" + key);
+            //Console.WriteLine("To copy: " + EncodeHashToBase64("Alex", Generatehash("Alex", "123", key, "mdk"), key));
+
+            #endregion
+
+            var originalDate = new DateTime(2018, 01, 30, 12, 30, 13,DateTimeKind.Utc);
+            Console.WriteLine("original date " + originalDate );
+            Console.WriteLine("changed date "  + DateTest(originalDate));
+
             Console.ReadLine();
         }
         private static string Generatehash(string username, string password, string key, string domain)
@@ -80,6 +89,11 @@ namespace ConsoleApp
                 return true;
             }
             return false;
+        }
+
+        private static string DateTest(DateTime date)
+        {
+            return date.ToLongDateString() + " " + date.ToLongTimeString();
         }
     }
 }
