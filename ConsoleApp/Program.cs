@@ -30,9 +30,9 @@ namespace ConsoleApp
 
             #region generate hash code
 
-            //string key = GenerateRandomAlphaNumericKey(23);
-            //Console.WriteLine("Random key is:" + key);
-            //Console.WriteLine("To copy: " + EncodeHashToBase64("Alex", Generatehash("Alex", "123", key, "mdk"), key));
+            string key = GenerateRandomAlphaNumericKey(23);
+            Console.WriteLine("Random key is:" + key);
+            Console.WriteLine("To copy: " + EncodeHashToBase64("Alex", Generatehash("Alex", "123", key, "mdk"), key));
 
             #endregion
 
