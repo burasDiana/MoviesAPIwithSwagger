@@ -14,5 +14,5 @@ dotnet run
 ```
 ### Paste in browser:
 ```
-localhost:53565/swagger
+localhost:port/swagger
 ```
