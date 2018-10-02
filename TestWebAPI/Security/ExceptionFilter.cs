@@ -13,8 +13,7 @@ namespace TestWebAPI.Security
         public override void OnException(HttpActionExecutedContext actionExecutedContext)
         {
             string exceptionMessage = string.Empty;
-            string exceptionContent = string.Empty;
-            if ( actionExecutedContext.Exception.InnerException == null )
+            if (actionExecutedContext.Exception.InnerException == null)
             {
                 exceptionMessage = actionExecutedContext.Exception.Message;
             }
@@ -22,7 +21,7 @@ namespace TestWebAPI.Security
             {
                 exceptionMessage = actionExecutedContext.Exception.InnerException.Message;
             }
-           
+
             var response = new HttpResponseMessage(HttpStatusCode.InternalServerError)
             {   
                 Content = new StringContent("An unhandled exception was thrown by service.") ,
@@ -31,6 +30,7 @@ namespace TestWebAPI.Security
 
             if ( actionExecutedContext.Exception is DivideByZeroException )
             {
+                string exceptionContent = string.Empty;
                 exceptionContent = "Cannot divide by zero";
                 response.Content = new StringContent(exceptionContent);
             }
