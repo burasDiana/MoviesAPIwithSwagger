@@ -7,17 +7,19 @@ using System.Threading;
 using System.Web.Http;
 using System.Web.Http.Results;
 using DataAccess;
+using Microsoft.Data.OData.Query.SemanticAst;
 using TestWebAPI.Models;
 using TestWebAPI.Security;
 
 namespace TestWebAPI.Controllers
 {
-    
+    [VersionFilter]
     [RoutePrefix("api/v1")]
     public class AuthController : ApiController
     {
-        [BasicAuthentication]
         [Route("token")]
+        
+        [BasicAuthentication]
         public IHttpActionResult GenerateToken()
         {
             int userId = UserSecurity.GetUserId(Thread.CurrentPrincipal.Identity.Name);
