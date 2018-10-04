@@ -24,6 +24,8 @@ namespace TestWebAPI.Security
 
             if ( operation.parameters == null )
                 operation.parameters = new List<Parameter>();
+
+            //add another header in swagger
             operation.parameters.Add(new Parameter
             {
                 name = "Accept-Version" ,
