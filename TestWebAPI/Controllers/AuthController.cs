@@ -47,5 +47,24 @@ namespace TestWebAPI.Controllers
             }
                 return Content(HttpStatusCode.Unauthorized, "password or user name incorrect");
         }
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("test")]
+        public IHttpActionResult Get()
+        {
+            Teacher teacher = new Teacher()
+            {
+                Id = 1897,
+                SuperId = "k39c0smf=cm}",
+                Email = "teach@email.com",
+                FullName = "James Martin",
+                ImageUrl = "imageURL",
+                Phone = "919637918",
+            };
+            
+            return Ok(teacher);
+        }
+
     }
 }
