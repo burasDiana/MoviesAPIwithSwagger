@@ -22,16 +22,6 @@ namespace TestWebAPI.Controllers
         //        return entities.Users.ToList();
         //    }
         //}
-        [Route("")]
-        public IHttpActionResult Get()
-        {
-            using ( MoviesEntities entities = new MoviesEntities() )
-            {
-                return Ok(entities.Users.ToList());
-            }
-
-        }
-
         /// <summary>
         /// Get user by id
         /// </summary>
@@ -44,6 +34,16 @@ namespace TestWebAPI.Controllers
         //        return entities.Users.FirstOrDefault(u => u.Id == id);
         //    }
         //}
+        [Route("")]
+        public IHttpActionResult Get()
+        {
+            using ( MoviesEntities entities = new MoviesEntities() )
+            {
+                return Ok(entities.Users.ToList());
+            }
+
+        }
+
         [Route("{id}")]
         public IHttpActionResult Get(int id)
         {
