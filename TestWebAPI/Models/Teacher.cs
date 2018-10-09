@@ -8,5 +8,6 @@ namespace TestWebAPI.Models
     public class Teacher : Person
     {
         public string SuperId { get; set; }
+        public virtual ICollection<Student> Students { get; set; }
     }
 }
