@@ -51,8 +51,10 @@ namespace TestWebAPI.Controllers
         [AllowAnonymous]
         [HttpGet]
         [Route("test")]
-        public IHttpActionResult Get()
+        [Queryable]
+        public IQueryable<Teacher> Get()
         {
+            List<Teacher> teachers = new List<Teacher>();
             Teacher teacher = new Teacher()
             {
                 Id = 1897,
@@ -61,9 +63,14 @@ namespace TestWebAPI.Controllers
                 FullName = "James Martin",
                 ImageUrl = "imageURL",
                 Phone = "919637918",
+                Students = new List<Student>()
+                {
+                    new Student{Id = 1,ClassId = "12A",Email = "james@james.com",FullName = "James Waters",ImageUrl = "imageURL",ParentPhoneNr = "91283043-32",Phone = "32939233-12"},
+                    new Student{Id = 2,ClassId = "12A",Email = "alex@alex.com",FullName = "Alex Waters",ImageUrl = "imageURL",ParentPhoneNr = "91283043-32",Phone = "329345233-12"}
+                }
             };
-            
-            return Ok(teacher);
+            teachers.Add(teacher);
+            return teachers.AsQueryable();
         }
 
     }
