@@ -236,6 +236,7 @@
     <Compile Include="Models\MovieRecommendation.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\ResetPasswordRequest.cs" />
+    <Compile Include="Models\Student.cs" />
     <Compile Include="Models\Teacher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\ApplyBasicAuth.cs" />
