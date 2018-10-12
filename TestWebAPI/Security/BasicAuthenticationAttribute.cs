@@ -35,7 +35,6 @@ namespace TestWebAPI.Security
                 else //if header exists, retrieve username and password
                 {
                     #region basic auth implementation
-                    // FORMAT=> username:password in base 64
                     string authToken = actionContext.Request.Headers.Authorization.Parameter;
                     string decodedAuthToken = Encoding.UTF8.GetString(Convert.FromBase64String(authToken));
                     string[] upArray = decodedAuthToken.Split(':');
@@ -121,7 +120,7 @@ namespace TestWebAPI.Security
                             actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Forbidden, "You do not have access to this function!");
                         }
                     }
-                    else //token does not exist, authentication failed
+                    else 
                     {
                         actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized, "Unauthorized request, invalid or expired token");
                     }
