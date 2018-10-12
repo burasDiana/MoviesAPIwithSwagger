@@ -106,7 +106,9 @@ namespace TestWebAPI.Controllers
                 Students = new List<Student>()
                 {
                     new Student{Id = 1,ClassId = "12A",Email = "james@james.com",FullName = "James Waters",ImageUrl = "imageURL",ParentPhoneNr = "91283043-32",Phone = "32939233-12"},
-                    new Student{Id = 2,ClassId = "12A",Email = "alex@alex.com",FullName = "Alex Waters",ImageUrl = "imageURL",ParentPhoneNr = "91283043-32",Phone = "329345233-12"}
+                    new Student{Id = 2,ClassId = "12A",Email = "alex@alex.com",FullName = "Alex Waters",ImageUrl = "imageURL",ParentPhoneNr = "91283043-32",Phone = "329345233-12"},
+                    new Student{Id = 3,ClassId = "12A",Email = "alex@alex.com",FullName = "Alex Waters",ImageUrl = "imageURL",ParentPhoneNr = "91283043-32",Phone = "329345233-12"},
+                    new Student{Id = 4,ClassId = "12A",Email = "alex@alex.com",FullName = "Alex Waters",ImageUrl = "imageURL",ParentPhoneNr = "91283043-32",Phone = "329345233-12"}
                 }
             };
             teachers.Add(teacher);
