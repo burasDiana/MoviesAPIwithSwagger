@@ -25,7 +25,7 @@ namespace TestWebAPI.Controllers
             int userId = UserSecurity.GetUserId(Thread.CurrentPrincipal.Identity.Name);
             string token = Token.GenerateRandomNumber(20);
             Token.StoreToken(userId,token);
-            AuthReturnObject response = new AuthReturnObject(token,DateTime.Now, DateTime.Now.AddHours(24),"Token");
+            AuthReturnObject response = new AuthReturnObject(token,DateTime.Now, DateTime.Now.AddHours(24),"Token", "84900");
             return Ok(response);
         }
 
