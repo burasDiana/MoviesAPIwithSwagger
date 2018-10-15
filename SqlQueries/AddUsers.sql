@@ -7,5 +7,6 @@
 
  Insert into Users values ('Alex','123')
  Insert into Users values ('Diana','321')
+ Insert into Users values ('John','453')
 
 
