@@ -5,60 +5,99 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using DataAccess;
+using TestWebAPI.Models;
 
 namespace TestWebAPI.Controllers
 {
     [RoutePrefix("api/v2/users")]
     public class UsersController : ApiController
     {
-        /// <summary>
-        /// Get all users
-        /// </summary>
-        /// <returns></returns>
-        //public IEnumerable<User> Get()
-        //{
-        //    using ( MoviesEntities entities = new MoviesEntities() )
-        //    {
-        //        return entities.Users.ToList();
-        //    }
-        //}
-        /// <summary>
-        /// Get user by id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        //public User Get(int id)
-        //{
-        //    using ( MoviesEntities entities = new MoviesEntities() )
-        //    {
-        //        return entities.Users.FirstOrDefault(u => u.Id == id);
-        //    }
-        //}
+
+        private MoviesEntities db = new MoviesEntities();
+
         [Route("")]
         public IHttpActionResult Get()
         {
-            using ( MoviesEntities entities = new MoviesEntities() )
-            {
-                return Ok(entities.Users.ToList());
-            }
+            var users = (from u in db.Users
+                         select new UserModel
+                         {
+                             Email = u.Email,
+                             Id = u.Id,
+                             Username = u.Username,
+                             MovieId = u.MovieId
+                         }).ToList();
 
+            return Ok(users);
         }
 
         [Route("{id}")]
         public IHttpActionResult Get(int id)
         {
-            using ( MoviesEntities entities = new MoviesEntities() )
+            var user = db.Users.FirstOrDefault(u => u.Id == id);
+            if (user == null)
             {
-                var user = entities.Users.FirstOrDefault(u => u.Id == id);
-                if ( user == null )
-                {
-                    return Content(HttpStatusCode.NotFound , "User not found");
-                }
-                else
-                {
-                    return Ok(user);
-                }
+                return Content(HttpStatusCode.NotFound, "User not found");
             }
+            else
+            {
+                return Ok(new UserModel()
+                {
+                    Email = user.Email,
+                    Id = user.Id,
+                    Username = user.Username,
+                    MovieId = user.MovieId
+                });
+            }
+        }
+
+        [HttpPost]
+        [Route("")]
+        public IHttpActionResult Post([FromBody] UserModel user) //[FromBody]
+        {
+            if (ModelState.IsValid)
+            {
+                db.Users.Add(new User(){Email = user.Email , Username = user.Username, MovieId = user.MovieId,Password = user.Password});
+                db.SaveChanges();
+
+                var createdUser = db.Users.FirstOrDefault(u => u.Username == user.Username);
+
+                return Ok(new UserModel(){Email = createdUser.Email, Username =  createdUser.Username, MovieId = createdUser.MovieId, Id = createdUser.Id,Password =  createdUser.Password});
+            }
+
+            return BadRequest();
+
+        }
+
+        [HttpPut]
+        [Route("")]
+        public IHttpActionResult Put(int id, string userName) //[FromBody]
+        {
+            var user = db.Users.FirstOrDefault(u => u.Id == id);
+            if (user == null)
+            {
+                return Content(HttpStatusCode.NotFound, "User not found");
+            }
+            else
+            {
+                user.Username = userName;
+                db.SaveChanges();
+                return Ok();
+            }
+            
+        }
+
+        [Route("{id}")]
+        public IHttpActionResult Delete(int id)
+        {
+            var user = db.Users.FirstOrDefault(u => u.Id == id);
+            if (user == null)
+            {
+                return Content(HttpStatusCode.NotFound, "User not found");
+            }
+
+            db.Users.Remove(user);
+            db.SaveChanges();
+            return Ok();
         }
     }
 }
