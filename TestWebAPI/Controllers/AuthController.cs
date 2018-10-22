@@ -19,7 +19,7 @@ namespace TestWebAPI.Controllers
     {
         [Route("token")]
         
-        [BasicAuthentication]
+        [CustomAuthentication]
         public IHttpActionResult GenerateToken()
         {
             int userId = UserSecurity.GetUserId(Thread.CurrentPrincipal.Identity.Name);

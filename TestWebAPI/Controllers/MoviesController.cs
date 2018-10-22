@@ -34,7 +34,7 @@ namespace TestWebAPI.Controllers
         /// list of movies in the database
         /// </returns>
         // GET: api/Movies
-        [BasicAuthentication(UserSecurity.UserType.Customer,UserSecurity.UserType.Admin)]
+        [CustomAuthentication(UserSecurity.UserType.Customer,UserSecurity.UserType.Admin)]
         //[Route("api/v1/movies")]
         [Route]
         [Queryable]
@@ -99,7 +99,7 @@ namespace TestWebAPI.Controllers
         /// <response code="201">Returns the created recommendation</response>
         /// <response code="400">If the movie corresponding to the id is null</response>
         // GET: api/Movies/GetRecommendation
-        [BasicAuthentication]
+        [CustomAuthentication]
         [SwaggerResponse(201, "Returns the created recommendation", typeof(MovieRecommendation))]
         [SwaggerResponse(400 , "If the movie corresponding to the id is null")]
         //[SwaggerResponseExample(HttpStatusCode.OK , typeof(MovieRecommendation))]
@@ -134,7 +134,7 @@ namespace TestWebAPI.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         // GET: api/Movies/5
-        [BasicAuthentication]
+        [CustomAuthentication]
         [ResponseType(typeof(Movie))]
         [SwaggerResponseExample(HttpStatusCode.OK , typeof(MovieExamples))]
         [Route("{id}")]
@@ -160,7 +160,7 @@ namespace TestWebAPI.Controllers
         /// <param name="movie"></param>
         /// <returns></returns>
         // PUT: api/Movies/5
-        [BasicAuthentication]
+        [CustomAuthentication]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutMovie(int id, Movy movie)
         {
@@ -204,7 +204,7 @@ namespace TestWebAPI.Controllers
         /// <param name="movie"></param>
         /// <returns></returns>
         // POST: api/Movies
-        [BasicAuthentication]
+        [CustomAuthentication]
         [ResponseType(typeof(Movy))]
         [SwaggerResponseExample(HttpStatusCode.OK , typeof(MovieExamples))]
         public IHttpActionResult PostMovie(Movy movie)
@@ -226,7 +226,7 @@ namespace TestWebAPI.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         // DELETE: api/Movies/5
-        [BasicAuthentication]
+        [CustomAuthentication]
         [ResponseType(typeof(Movy))]
         public IHttpActionResult DeleteMovie(int id)
         {
