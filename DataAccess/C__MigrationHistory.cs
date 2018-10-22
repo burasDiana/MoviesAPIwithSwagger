@@ -12,14 +12,11 @@ namespace DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class C__MigrationHistory
     {
-        public int Id { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string Email { get; set; }
-        public Nullable<int> MovieId { get; set; }
-    
-        public virtual Movy Movy { get; set; }
+        public string MigrationId { get; set; }
+        public string ContextKey { get; set; }
+        public byte[] Model { get; set; }
+        public string ProductVersion { get; set; }
     }
 }

@@ -39,7 +39,6 @@ D:\Development\testrepo\TestWebAPI\DataAccess\bin\Debug\EntityFramework.dll
 D:\Development\testrepo\TestWebAPI\DataAccess\bin\Debug\EntityFramework.SqlServer.dll
 D:\Development\testrepo\TestWebAPI\DataAccess\bin\Debug\EntityFramework.xml
 D:\Development\testrepo\TestWebAPI\DataAccess\bin\Debug\EntityFramework.SqlServer.xml
-D:\Development\testrepo\TestWebAPI\DataAccess\obj\Debug\DataAccess.csprojAssemblyReference.cache
 D:\Development\testrepo\TestWebAPI\DataAccess\obj\Debug\DataAccess.csproj.CoreCompileInputs.cache
 D:\Development\testrepo\TestWebAPI\DataAccess\obj\Debug\DataAccess.csproj.CopyComplete
 D:\Development\testrepo\TestWebAPI\DataAccess\obj\Debug\DataAccess.dll

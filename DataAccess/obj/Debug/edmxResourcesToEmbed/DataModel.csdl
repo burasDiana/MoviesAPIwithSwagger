@@ -9,6 +9,7 @@
     <Property Name="ReleaseDate" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="Genre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Price" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <NavigationProperty Name="Users" Relationship="MoviesModel.FK__Users__MovieId__47DBAE45" FromRole="Movy" ToRole="User" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -18,9 +19,38 @@
     <Property Name="Username" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="MovieId" Type="Int32" />
+    <NavigationProperty Name="Movy" Relationship="MoviesModel.FK__Users__MovieId__47DBAE45" FromRole="User" ToRole="Movy" />
   </EntityType>
   <EntityContainer Name="MoviesEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Movies" EntityType="Self.Movy" />
     <EntitySet Name="Users" EntityType="Self.User" />
+    <EntitySet Name="C__MigrationHistory" EntityType="MoviesModel.C__MigrationHistory" />
+    <AssociationSet Name="FK__Users__MovieId__47DBAE45" Association="MoviesModel.FK__Users__MovieId__47DBAE45">
+      <End Role="Movy" EntitySet="Movies" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="C__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK__Users__MovieId__47DBAE45">
+    <End Type="MoviesModel.Movy" Role="Movy" Multiplicity="0..1" />
+    <End Type="MoviesModel.User" Role="User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Movy">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="MovieId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

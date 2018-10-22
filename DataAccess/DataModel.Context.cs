@@ -27,5 +27,6 @@ namespace DataAccess
     
         public virtual DbSet<Movy> Movies { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
     }
 }
