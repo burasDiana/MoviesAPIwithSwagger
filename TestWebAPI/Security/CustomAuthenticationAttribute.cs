@@ -15,6 +15,7 @@ namespace TestWebAPI.Security
 {
     public class CustomAuthenticationAttribute : AuthorizationFilterAttribute
     {
+        //test
         public UserSecurity.UserType[] UserTypes { get; set; }
 
         public CustomAuthenticationAttribute(params UserSecurity.UserType[] _userTypes)
