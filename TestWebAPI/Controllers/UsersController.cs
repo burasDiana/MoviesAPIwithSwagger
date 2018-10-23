@@ -50,7 +50,7 @@ namespace TestWebAPI.Controllers
             }
         }
 
-        [HttpPost]
+        
         [Route("")]
         public IHttpActionResult Post([FromBody] UserModel user) //[FromBody]
         {
@@ -68,7 +68,7 @@ namespace TestWebAPI.Controllers
 
         }
 
-        [HttpPut]
+        
         [Route("")]
         public IHttpActionResult Put(int id, string userName) //[FromBody]
         {
