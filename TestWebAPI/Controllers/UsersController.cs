@@ -15,9 +15,23 @@ namespace TestWebAPI.Controllers
 
         private MoviesEntities db = new MoviesEntities();
 
-        [Route("")]
-        public IHttpActionResult Get()
+        [Route("{id:int?}")]
+        public IHttpActionResult Get(int? movieId = null)
         {
+            if (movieId.HasValue)
+            {
+                var users1 = (from u in db.Users
+                              where u.MovieId == movieId
+                    select new UserModel
+                    {
+                        Email = u.Email,
+                        Id = u.Id,
+                        Username = u.Username,
+                        MovieId = u.MovieId
+                    }).ToList();
+                return Ok(users1);
+            }
+
             var users = (from u in db.Users
                          select new UserModel
                          {
