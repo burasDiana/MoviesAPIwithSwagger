@@ -44,7 +44,7 @@ namespace TestWebAPI.Controllers
             return Ok(users);
         }
 
-        [Route("{id}")]
+        [Route("GetUnique/{id}")]
         public IHttpActionResult Get(int id)
         {
             var user = db.Users.FirstOrDefault(u => u.Id == id);
