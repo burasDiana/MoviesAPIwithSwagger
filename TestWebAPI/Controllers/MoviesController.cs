@@ -199,6 +199,33 @@ namespace TestWebAPI.Controllers
         }
 
         /// <summary>
+        /// Edit a movie with id = id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="movie"></param>
+        /// <returns></returns>
+        // PUT: api/Movies/5
+        [CustomAuthentication(UserSecurity.UserType.Customer)]
+        [ResponseType(typeof(void))]
+        [HttpPatch]
+        [Route("{id}")]
+        public IHttpActionResult PatchMovie(int id, MoviePatchRequest request)
+        {
+            if (!MovieExists(id))
+            {
+                return NotFound();
+            }
+
+            var movie = db.Movies.FirstOrDefault(m => m.ID == id);
+
+            movie.Price = request.Price.HasValue ? request.Price.Value : movie.Price;
+
+            db.SaveChanges();
+
+            return Ok(movie);
+        }
+
+        /// <summary>
         /// Add a movie
         /// </summary>
         /// <param name="movie"></param>
