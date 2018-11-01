@@ -233,6 +233,7 @@
     <Compile Include="Models\AuthReturnObject.cs" />
     <Compile Include="Models\MovieExamples.cs" />
     <Compile Include="Models\Movie.cs" />
+    <Compile Include="Models\MoviePatchRequest.cs" />
     <Compile Include="Models\MovieRecommendation.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\ResetPasswordRequest.cs" />
