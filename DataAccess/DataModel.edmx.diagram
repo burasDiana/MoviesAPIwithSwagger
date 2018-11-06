@@ -9,6 +9,8 @@
         <EntityTypeShape EntityType="MoviesModel.User" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MoviesModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="3.75" />
         <AssociationConnector Association="MoviesModel.FK__Users__MovieId__47DBAE45" />
+        <EntityTypeShape EntityType="MoviesModel.Token" Width="1.5" PointX="5" PointY="1.125" />
+        <AssociationConnector Association="MoviesModel.FK__Tokens__UserId__6E01572D" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

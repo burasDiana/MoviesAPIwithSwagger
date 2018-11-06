@@ -25,6 +25,13 @@
           <Property Name="Genre" Type="nvarchar(max)" />
           <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
+        <EntityType Name="Tokens">
+          <Key>
+            <PropertyRef Name="TokenValue" />
+          </Key>
+          <Property Name="TokenValue" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="Id" />
@@ -35,6 +42,18 @@
           <Property Name="Email" Type="nvarchar" MaxLength="100" />
           <Property Name="MovieId" Type="int" />
         </EntityType>
+        <Association Name="FK__Tokens__UserId__6E01572D">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Tokens" Type="Self.Tokens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tokens">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Users__MovieId__47DBAE45">
           <End Role="Movies" Type="Self.Movies" Multiplicity="0..1" />
           <End Role="Users" Type="Self.Users" Multiplicity="*" />
@@ -50,7 +69,12 @@
         <EntityContainer Name="MoviesModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Movies" EntityType="Self.Movies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tokens" EntityType="Self.Tokens" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Tokens__UserId__6E01572D" Association="Self.FK__Tokens__UserId__6E01572D">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Tokens" EntitySet="Tokens" />
+          </AssociationSet>
           <AssociationSet Name="FK__Users__MovieId__47DBAE45" Association="Self.FK__Users__MovieId__47DBAE45">
             <End Role="Movies" EntitySet="Movies" />
             <End Role="Users" EntitySet="Users" />
@@ -81,6 +105,7 @@
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="MovieId" Type="Int32" />
           <NavigationProperty Name="Movy" Relationship="MoviesModel.FK__Users__MovieId__47DBAE45" FromRole="User" ToRole="Movy" />
+          <NavigationProperty Name="Tokens" Relationship="MoviesModel.FK__Tokens__UserId__6E01572D" FromRole="User" ToRole="Token" />
         </EntityType>
         <EntityContainer Name="MoviesEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Movies" EntityType="Self.Movy" />
@@ -89,6 +114,11 @@
           <AssociationSet Name="FK__Users__MovieId__47DBAE45" Association="MoviesModel.FK__Users__MovieId__47DBAE45">
             <End Role="Movy" EntitySet="Movies" />
             <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <EntitySet Name="Tokens" EntityType="MoviesModel.Token" />
+          <AssociationSet Name="FK__Tokens__UserId__6E01572D" Association="MoviesModel.FK__Tokens__UserId__6E01572D">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Token" EntitySet="Tokens" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
@@ -110,6 +140,26 @@
             </Principal>
             <Dependent Role="User">
               <PropertyRef Name="MovieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Token">
+          <Key>
+            <PropertyRef Name="TokenValue" />
+          </Key>
+          <Property Name="TokenValue" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="MoviesModel.FK__Tokens__UserId__6E01572D" FromRole="Token" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__Tokens__UserId__6E01572D">
+          <End Type="MoviesModel.User" Role="User" Multiplicity="1" />
+          <End Type="MoviesModel.Token" Role="Token" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Token">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -148,6 +198,14 @@
                 <ScalarProperty Name="Model" ColumnName="Model" />
                 <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
                 <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tokens">
+            <EntityTypeMapping TypeName="MoviesModel.Token">
+              <MappingFragment StoreEntitySet="Tokens">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="TokenValue" ColumnName="TokenValue" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

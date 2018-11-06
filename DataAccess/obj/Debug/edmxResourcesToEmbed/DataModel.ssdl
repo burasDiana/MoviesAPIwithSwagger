@@ -20,6 +20,13 @@
     <Property Name="Genre" Type="nvarchar(max)" />
     <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
   </EntityType>
+  <EntityType Name="Tokens">
+    <Key>
+      <PropertyRef Name="TokenValue" />
+    </Key>
+    <Property Name="TokenValue" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="Users">
     <Key>
       <PropertyRef Name="Id" />
@@ -30,6 +37,18 @@
     <Property Name="Email" Type="nvarchar" MaxLength="100" />
     <Property Name="MovieId" Type="int" />
   </EntityType>
+  <Association Name="FK__Tokens__UserId__6E01572D">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Tokens" Type="Self.Tokens" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tokens">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__Users__MovieId__47DBAE45">
     <End Role="Movies" Type="Self.Movies" Multiplicity="0..1" />
     <End Role="Users" Type="Self.Users" Multiplicity="*" />
@@ -45,7 +64,12 @@
   <EntityContainer Name="MoviesModelStoreContainer">
     <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Movies" EntityType="Self.Movies" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tokens" EntityType="Self.Tokens" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Tokens__UserId__6E01572D" Association="Self.FK__Tokens__UserId__6E01572D">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Tokens" EntitySet="Tokens" />
+    </AssociationSet>
     <AssociationSet Name="FK__Users__MovieId__47DBAE45" Association="Self.FK__Users__MovieId__47DBAE45">
       <End Role="Movies" EntitySet="Movies" />
       <End Role="Users" EntitySet="Users" />

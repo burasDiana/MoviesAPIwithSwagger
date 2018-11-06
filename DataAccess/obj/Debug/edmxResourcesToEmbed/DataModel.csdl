@@ -21,6 +21,7 @@
     <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="MovieId" Type="Int32" />
     <NavigationProperty Name="Movy" Relationship="MoviesModel.FK__Users__MovieId__47DBAE45" FromRole="User" ToRole="Movy" />
+    <NavigationProperty Name="Tokens" Relationship="MoviesModel.FK__Tokens__UserId__6E01572D" FromRole="User" ToRole="Token" />
   </EntityType>
   <EntityContainer Name="MoviesEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Movies" EntityType="Self.Movy" />
@@ -29,6 +30,11 @@
     <AssociationSet Name="FK__Users__MovieId__47DBAE45" Association="MoviesModel.FK__Users__MovieId__47DBAE45">
       <End Role="Movy" EntitySet="Movies" />
       <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <EntitySet Name="Tokens" EntityType="MoviesModel.Token" />
+    <AssociationSet Name="FK__Tokens__UserId__6E01572D" Association="MoviesModel.FK__Tokens__UserId__6E01572D">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Token" EntitySet="Tokens" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="C__MigrationHistory">
@@ -50,6 +56,26 @@
       </Principal>
       <Dependent Role="User">
         <PropertyRef Name="MovieId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Token">
+    <Key>
+      <PropertyRef Name="TokenValue" />
+    </Key>
+    <Property Name="TokenValue" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="MoviesModel.FK__Tokens__UserId__6E01572D" FromRole="Token" ToRole="User" />
+  </EntityType>
+  <Association Name="FK__Tokens__UserId__6E01572D">
+    <End Type="MoviesModel.User" Role="User" Multiplicity="1" />
+    <End Type="MoviesModel.Token" Role="Token" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Token">
+        <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
