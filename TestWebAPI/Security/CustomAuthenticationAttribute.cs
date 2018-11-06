@@ -26,7 +26,7 @@ namespace TestWebAPI.Security
         public override void OnAuthorization(HttpActionContext actionContext)
         {
             
-            if (actionContext.RequestContext.RouteData.Route.RouteTemplate.Contains("token")) // can also use Headers.Authorization.scheme =Token or Basic
+            if (actionContext.RequestContext.RouteData.Route.RouteTemplate.Contains("token")) // can also use Headers.Authorization.scheme =TokenHandler or Basic
             {
                 //authenticate if auth header is present
                 if (actionContext.Request.Headers.Authorization == null)
@@ -111,9 +111,9 @@ namespace TestWebAPI.Security
                 else
                 {
                     string authToken = actionContext.Request.Headers.Authorization.Parameter;
-                    if (Token.TokenExists(authToken))
+                    if (TokenHandler.TokenExists(authToken))
                     {
-                        int userId =  Token.GetUserID(authToken);
+                        int userId =  TokenHandler.GetUserID(authToken);
                         string userName = UserSecurity.GetUserName(userId);
                         Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(userName), null);
                         if (!UserRole_Allowed(UserSecurity.UserType.Customer))
