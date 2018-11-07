@@ -12,6 +12,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using TestWebAPI.Models;
+using TestWebAPI.Models.ResponseModels;
 using TestWebAPI.Security;
 
 namespace TestWebAPI.Controllers
@@ -39,9 +40,19 @@ namespace TestWebAPI.Controllers
         [Route]
         [Queryable]
         [SwaggerResponseExample(HttpStatusCode.OK , typeof(MovieExamples))]
-        public IQueryable<Movy> GetMovies()
+        public IQueryable<MovieResponseObject> GetMovies()
         {
-            return db.Movies.AsQueryable();
+            var movies = (from m in db.Movies
+                select new MovieResponseObject()
+                {
+                    Id = m.ID,
+                    Genre = m.Genre,
+                    Price = m.Price,
+                    ReleaseDate = m.ReleaseDate,
+                    Title = m.Title
+                }).ToList();
+
+            return movies.AsQueryable();
         }
 
         //method for getting count of elements from Odata
