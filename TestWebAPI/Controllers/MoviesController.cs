@@ -146,7 +146,7 @@ namespace TestWebAPI.Controllers
         /// <returns></returns>
         // GET: api/Movies/5
         [CustomAuthentication]
-        [ResponseType(typeof(Movie))]
+        [ResponseType(typeof(MovieResponseObject))]
         [SwaggerResponseExample(HttpStatusCode.OK , typeof(MovieExamples))]
         [Route("{id}")]
         public IHttpActionResult GetMovie(int id)
