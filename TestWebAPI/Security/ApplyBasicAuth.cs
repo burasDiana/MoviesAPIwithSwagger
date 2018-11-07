@@ -34,6 +34,16 @@ namespace TestWebAPI.Security
                 description = "Client-Version" ,
                 required = true
             });
+
+            //add token param
+            operation.parameters.Add(new Parameter
+            {
+                name = "Authorization",
+                @in = "'Token' + Value",
+                type = "string",
+                description = "Authentication scheme = 'Token'",
+                required = false
+            });
         }
     }
 }
