@@ -39,7 +39,7 @@ namespace TestWebAPI.Security
             operation.parameters.Add(new Parameter
             {
                 name = "Authorization",
-                @in = "'Token' + Value",
+                @in = "header", //this property must be set to header to indicate how swagger interprets it
                 type = "string",
                 description = "Authentication scheme = 'Token'",
                 required = false
