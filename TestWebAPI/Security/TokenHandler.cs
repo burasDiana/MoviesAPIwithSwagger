@@ -8,6 +8,9 @@ using System.Web;
 
 namespace TestWebAPI.Security
 {
+    /// <summary>
+    /// This class is used for operations that revolve around token generation, storing and accessing
+    /// </summary>
     public class TokenHandler
     {
         public static string Value{ get; set; }
