@@ -94,7 +94,6 @@ namespace TestWebAPI.Controllers
         /// <summary>
         /// Returns current time
         /// </summary>
-        /// <returns></returns>
         //[Route("api/Movies/GetTime")]
         [Route("GetTime")]
         public HttpResponseMessage GetTime()
@@ -142,8 +141,6 @@ namespace TestWebAPI.Controllers
         /// <summary>
         /// Get a movie by id
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         // GET: api/Movies/5
         [CustomAuthentication]
         [ResponseType(typeof(MovieResponseObject))]
@@ -169,7 +166,6 @@ namespace TestWebAPI.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <param name="movie"></param>
-        /// <returns></returns>
         // PUT: api/Movies/5
         [CustomAuthentication]
         [ResponseType(typeof(void))]
@@ -214,7 +210,6 @@ namespace TestWebAPI.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <param name="movie"></param>
-        /// <returns></returns>
         // PUT: api/Movies/5
         [CustomAuthentication(UserSecurity.UserType.Customer)]
         [ResponseType(typeof(void))]
@@ -240,7 +235,6 @@ namespace TestWebAPI.Controllers
         /// Add a movie
         /// </summary>
         /// <param name="movie"></param>
-        /// <returns></returns>
         // POST: api/Movies
         [CustomAuthentication]
         [ResponseType(typeof(Movy))]
@@ -262,7 +256,6 @@ namespace TestWebAPI.Controllers
         /// Delete a movie with id = id
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
         // DELETE: api/Movies/5
         [CustomAuthentication]
         [ResponseType(typeof(Movy))]
@@ -289,6 +282,9 @@ namespace TestWebAPI.Controllers
             base.Dispose(disposing);
         }
 
+        /// <summary>
+        ///  This method check whether a movie exists in the database
+        /// </summary>
         private bool MovieExists(int id)
         {
             using ( MoviesEntities db = new MoviesEntities() )
