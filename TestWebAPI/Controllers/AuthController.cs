@@ -13,12 +13,17 @@ using TestWebAPI.Security;
 
 namespace TestWebAPI.Controllers
 {
+    /// <summary>
+    ///  This class handler operations related to authentication, like token generation and password changing
+    /// </summary>
     [VersionFilter]
     [RoutePrefix("api/v1")]
     public class AuthController : ApiController
     {
+        /// <summary>
+        ///  Create, store and return a user token
+        /// </summary>
         [Route("token")]
-        
         [CustomAuthentication]
         public IHttpActionResult GenerateToken()
         {
@@ -29,6 +34,9 @@ namespace TestWebAPI.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Resets a user's password.
+        /// </summary>
         [AllowAnonymous]
         [Route("resetPassword")]
         public IHttpActionResult ResetPassword(ResetPasswordRequest request)
@@ -48,31 +56,9 @@ namespace TestWebAPI.Controllers
                 return Content(HttpStatusCode.Unauthorized, "password or user name incorrect");
         }
 
-        //[AllowAnonymous]
-        //[HttpGet]
-        //[Route("test")]
-        //[Queryable]
-        //public IQueryable<Teacher> Get()
-        //{
-        //    List<Teacher> teachers = new List<Teacher>();
-        //    Teacher teacher = new Teacher()
-        //    {
-        //        Id = 1897,
-        //        SuperId = "k39c0smf=cm}",
-        //        Email = "teach@email.com",
-        //        FullName = "James Martin",
-        //        ImageUrl = "imageURL",
-        //        Phone = "919637918",
-        //        Students = new List<Student>()
-        //        {
-        //            new Student{Id = 1,ClassId = "12A",Email = "james@james.com",FullName = "James Waters",ImageUrl = "imageURL",ParentPhoneNr = "91283043-32",Phone = "32939233-12"},
-        //            new Student{Id = 2,ClassId = "12A",Email = "alex@alex.com",FullName = "Alex Waters",ImageUrl = "imageURL",ParentPhoneNr = "91283043-32",Phone = "329345233-12"}
-        //        }
-        //    };
-        //    teachers.Add(teacher);
-        //    return teachers.AsQueryable();
-        //}
-
+        /// <summary>
+        /// This is a test method. To be removed 
+        /// </summary>
         // query example : http://localhost:53562/api/v1/test?$expand=Students&$select=FullName,Id,Students/FullName
         [AllowAnonymous]
         [HttpGet]
