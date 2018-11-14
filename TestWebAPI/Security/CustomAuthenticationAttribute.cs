@@ -15,7 +15,6 @@ namespace TestWebAPI.Security
 {
     public class CustomAuthenticationAttribute : AuthorizationFilterAttribute
     {
-        //test
         public UserSecurity.UserType[] UserTypes { get; set; }
 
         public CustomAuthenticationAttribute(params UserSecurity.UserType[] _userTypes)
@@ -54,6 +53,7 @@ namespace TestWebAPI.Security
                     #endregion
                 }
 
+                // this is the md5 hash implementation. not currently used. to be removed.
                 #region authtoken with MD5 hash implementation
                 //private static List<string> knowncodesforAlex = new List<string>() {"2LO1AASEOXUQP5LJ8KOFYW5"};
                 //authtoken format => username:randomkey:hash
