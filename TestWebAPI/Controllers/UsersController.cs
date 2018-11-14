@@ -15,6 +15,9 @@ namespace TestWebAPI.Controllers
 
         private MoviesEntities db = new MoviesEntities();
 
+        /// <summary>
+        /// This method returns a list of users, or alternatively if a movieId is provided, that specific movie
+        /// </summary>
         [Route("{id:int?}")]
         public IHttpActionResult Get(int? movieId = null)
         {
@@ -44,6 +47,9 @@ namespace TestWebAPI.Controllers
             return Ok(users);
         }
 
+        /// <summary>
+        /// This method returns a movie by id
+        /// </summary>
         [Route("GetUnique/{id}")]
         public IHttpActionResult Get(int id)
         {
@@ -65,6 +71,9 @@ namespace TestWebAPI.Controllers
         }
 
         
+        /// <summary>
+        /// This method adds a new user to the database
+        /// </summary>
         [Route("")]
         public IHttpActionResult Post([FromBody] UserModel user) //[FromBody]
         {
@@ -82,7 +91,9 @@ namespace TestWebAPI.Controllers
 
         }
 
-        
+        /// <summary>
+        /// This method edits a user's username in the database
+        /// </summary>
         [Route("")]
         public IHttpActionResult Put(int id, string userName) //[FromBody]
         {
@@ -100,6 +111,9 @@ namespace TestWebAPI.Controllers
             
         }
 
+        /// <summary>
+        /// This method deletes a user from the database
+        /// </summary>
         [Route("{id}")]
         public IHttpActionResult Delete(int id)
         {
