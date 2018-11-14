@@ -6,8 +6,14 @@ using DataAccess;
 
 namespace TestWebAPI.Security
 {
+    /// <summary>
+    /// This class is used for operations that revolve around users
+    /// </summary>
     public class UserSecurity
     {
+        /// <summary>
+        /// enum defining the types of user that can access the API
+        /// </summary>
         public enum UserType
         {
             Undefined = -1,
@@ -15,6 +21,9 @@ namespace TestWebAPI.Security
             Customer = 1
         }
 
+        /// <summary>
+        /// Gets the password of a certain user
+        /// </summary>
         public static string GetPasswordForUser(string username)
         {
             using ( MoviesEntities db = new MoviesEntities() )
@@ -23,6 +32,9 @@ namespace TestWebAPI.Security
             }
         }
 
+        /// <summary>
+        /// Verifies that a user with the matching username/password exists in the database
+        /// </summary>
         public static bool Login(string username, string password)
         {
         using(MoviesEntities entities = new MoviesEntities() )
@@ -31,6 +43,9 @@ namespace TestWebAPI.Security
             }
         }
 
+        /// <summary>
+        /// Gets the user id based on the user name
+        /// </summary>
         public static int GetUserId(string username)
         {
             using (MoviesEntities entities = new MoviesEntities())
@@ -43,6 +58,9 @@ namespace TestWebAPI.Security
             }
         }
 
+        /// <summary>
+        /// Gets the username of a user based on the user id
+        /// </summary>
         public static string GetUserName(int userId)
         {
             using (MoviesEntities entities = new MoviesEntities())
