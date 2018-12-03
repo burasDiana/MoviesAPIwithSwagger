@@ -44,6 +44,17 @@ namespace TestWebAPI.Security
         }
 
         /// <summary>
+        /// Verifies that a user with the matching username exists in the database
+        /// </summary>
+        public static bool FindUser(string username)
+        {
+            using (MoviesEntities entities = new MoviesEntities())
+            {
+                return entities.Users.Any(u => u.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
+            }
+        }
+
+        /// <summary>
         /// Gets the user id based on the user name
         /// </summary>
         public static int GetUserId(string username)
