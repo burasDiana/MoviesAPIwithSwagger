@@ -10,6 +10,9 @@ namespace TestWebAPI.Security
 {
     public class ExceptionFilter : ExceptionFilterAttribute
     {
+        /// <summary>
+        /// This class is used for catching unhandled exeptions at the application level
+        /// </summary>
         public override void OnException(HttpActionExecutedContext actionExecutedContext)
         {
             string exceptionMessage = string.Empty;
