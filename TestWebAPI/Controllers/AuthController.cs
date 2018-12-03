@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Mail;
 using System.Threading;
 using System.Web.Http;
 using System.Web.Http.Results;
@@ -20,6 +21,8 @@ namespace TestWebAPI.Controllers
     [RoutePrefix("api/v1")]
     public class AuthController : ApiController
     {
+        private static string secretResetCode = "2Gh29F";
+
         /// <summary>
         ///  Create, store and return a user token
         /// </summary>
@@ -29,9 +32,31 @@ namespace TestWebAPI.Controllers
         {
             int userId = UserSecurity.GetUserId(Thread.CurrentPrincipal.Identity.Name);
             string token = TokenHandler.GenerateRandomNumber(20);
-            TokenHandler.StoreToken(userId,token);
-            AuthReturnObject response = new AuthReturnObject(token,DateTime.Now, DateTime.Now.AddHours(24),"TokenHandler", "84900");
+            TokenHandler.StoreToken(userId, token);
+            AuthReturnObject response = new AuthReturnObject(token, DateTime.Now, DateTime.Now.AddHours(24), "TokenHandler", "84900");
             return Ok(response);
+        }
+
+        /// <summary>
+        /// Allows user to request a password reset when they forgot their password
+        /// </summary>
+        [AllowAnonymous]
+        [Route("requestPasswordReset")]
+        public IHttpActionResult RequestPasswordReset(ResetPasswordRequest request)
+        {
+            if (UserSecurity.FindUser(request.UserName))
+            {
+                if (request.EmailAddress != string.Empty && EmailAddressValid(request.EmailAddress))
+                {
+                    SendMailToAddress(request.EmailAddress, secretResetCode);
+                }
+                else
+                {
+                    return Content(HttpStatusCode.Unauthorized, "Email address invalid.");
+                }
+                return Ok();
+            }
+            return Content(HttpStatusCode.Unauthorized, "User not found.");
         }
 
         /// <summary>
@@ -41,19 +66,20 @@ namespace TestWebAPI.Controllers
         [Route("resetPassword")]
         public IHttpActionResult ResetPassword(ResetPasswordRequest request)
         {
-            if (UserSecurity.Login(request.UserName, request.OldPassword))
-            {
-                int userId = UserSecurity.GetUserId(request.UserName);
-                //password matches user
-                using (MoviesEntities db = new MoviesEntities())
-                {
-                    db.Users.FirstOrDefault(u => u.Id.Equals(userId)).Password = request.NewPassword;
-                    db.SaveChanges();
-                }
+            int userId = UserSecurity.GetUserId(request.UserName);
 
+            if (request.SecretCode != null && request.SecretCode == secretResetCode)
+            {
+                ResetUserPassword(request.NewPassword, userId);
                 return Ok();
             }
-                return Content(HttpStatusCode.Unauthorized, "password or user name incorrect");
+            else if (UserSecurity.Login(request.UserName, request.OldPassword))
+            {
+                //password matches user
+                ResetUserPassword(request.NewPassword, userId);
+                return Ok();
+            }
+            return Content(HttpStatusCode.Unauthorized, "Password or secret code does not match.");
         }
 
         /// <summary>
@@ -102,5 +128,49 @@ namespace TestWebAPI.Controllers
             return teachers.AsQueryable();
         }
 
+        /// <summary>
+        /// This method is used to send a password reset code to a user by email.
+        /// </summary>
+        /// <param name="mailAddress"></param>
+        /// <param name="resetCode"></param>
+        private void SendMailToAddress(string mailAddress, string resetCode)
+        {
+            MailMessage mail = new MailMessage("test@testwebapi.com", mailAddress);
+            SmtpClient client = new SmtpClient();
+            client.Port = 25;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = false;
+            client.Host = "smtp.gmail.com";
+            mail.Subject = "Reset password secret code";
+            mail.Body = "Use the follwing code to reset your password: " + resetCode;
+            client.Send(mail);
+        }
+
+        /// <summary>
+        /// This method resets a user's password in the database
+        /// </summary>
+        /// <param name="password"></param>
+        /// <param name="userId"></param>
+        private void ResetUserPassword(string password, int userId)
+        {
+            using (MoviesEntities db = new MoviesEntities())
+            {
+                db.Users.FirstOrDefault(u => u.Id.Equals(userId)).Password = password;
+                db.SaveChanges();
+            }
+        }
+
+
+        /// <summary>
+        /// This method checks that the email address is valid
+        /// </summary>
+        private bool EmailAddressValid(string email)
+        {
+            if (email.Contains('@') && (email.Contains(".com") || email.Contains("hotmail") || email.Contains("me") || email.Contains("gmail") || email.Contains(".")))
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
