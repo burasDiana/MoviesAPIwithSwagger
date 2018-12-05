@@ -1,10 +1,6 @@
 ﻿using DataAccess;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics.SymbolStore;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Web;
 
 namespace TestWebAPI.Security
 {
@@ -16,6 +12,7 @@ namespace TestWebAPI.Security
         public static string Value{ get; set; }
         static string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         private static MoviesEntities db;
+        private static string lastClearCacheString = "lastClear";
 
         static TokenHandler()
         {
@@ -45,6 +42,12 @@ namespace TestWebAPI.Security
             db.SaveChanges();
         }
 
+        public static void ClearTokens()
+        {
+            db.Tokens.RemoveRange(db.Tokens);
+            db.SaveChanges();
+        }
+
         public static bool TokenExists(string token)
         {
             if (db.Tokens.Any(u => u.TokenValue.Equals(token)))
@@ -57,6 +60,36 @@ namespace TestWebAPI.Security
         public static int GetUserID(string token)
         {
             return db.Tokens.FirstOrDefault(x => x.TokenValue == token).UserId;
+        }
+
+        public static DateTime GetLastClearValue()
+        {
+            var date =  MemoryCacher.GetValue(lastClearCacheString);
+
+            if (date is DateTime)
+            {
+                return (DateTime)date;
+            }
+
+            return DateTime.Now.AddHours(-25); //means table will be cleared
+        }
+
+        public static void SetLastClearRequest(DateTime lastClearRequest)
+        {
+            if (MemoryCacher.KeyExists(lastClearCacheString))
+            {
+                MemoryCacher.Set(lastClearCacheString, lastClearRequest, DateTimeOffset.UtcNow.AddYears(1));
+            }
+            else
+            {
+                MemoryCacher.Add(lastClearCacheString, lastClearRequest, DateTimeOffset.UtcNow.AddYears(1));
+            }
+        }
+
+        public static bool CanClearTokens(DateTime currentClearReqest)
+        {
+            var lastClear = GetLastClearValue();
+            return (currentClearReqest - lastClear).TotalHours >= 24 ? true : false;
         }
     }
 }
