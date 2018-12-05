@@ -24,7 +24,14 @@ namespace TestWebAPI.Security
 
         public override void OnAuthorization(HttpActionContext actionContext)
         {
-            
+
+            //empty token table if 24 h passed since last emptying
+            if (TokenHandler.CanClearTokens(DateTime.Now))
+            {
+                TokenHandler.ClearTokens();
+                TokenHandler.SetLastClearRequest(DateTime.Now);
+            }
+
             if (actionContext.RequestContext.RouteData.Route.RouteTemplate.Contains("token")) // can also use Headers.Authorization.scheme =TokenHandler or Basic
             {
                 //authenticate if auth header is present
