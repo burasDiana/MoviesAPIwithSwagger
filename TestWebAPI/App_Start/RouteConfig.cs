@@ -15,10 +15,10 @@ namespace TestWebAPI
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapHttpRoute(
-            name: "Error404",
-            routeTemplate: "{*url}",
-            defaults: new { controller = "Error", action = "Handle404" });
+            //routes.MapHttpRoute(
+            //name: "Error404",
+            //routeTemplate: "",
+            //defaults: new { controller = "Error", action = "Handle404" });
 
             routes.MapHttpRoute(
             name: "swagger_root" ,
