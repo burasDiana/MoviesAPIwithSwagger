@@ -108,6 +108,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Security" />
     <Reference Include="System.Spatial, Version=5.8.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Spatial.5.8.4\lib\net40\System.Spatial.dll</HintPath>
@@ -247,6 +248,7 @@
     <Compile Include="Security\CustomAuthenticationAttribute.cs" />
     <Compile Include="Security\ExceptionFilter.cs" />
     <Compile Include="Security\HashExtension.cs" />
+    <Compile Include="Security\MemoryCacher.cs" />
     <Compile Include="Security\TokenHandler.cs" />
     <Compile Include="Security\UserSecurity.cs" />
     <Compile Include="Security\VersionFilter.cs" />
