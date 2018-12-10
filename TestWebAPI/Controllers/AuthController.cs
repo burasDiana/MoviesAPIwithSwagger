@@ -160,7 +160,6 @@ namespace TestWebAPI.Controllers
             }
         }
 
-
         /// <summary>
         /// This method checks that the email address is valid
         /// </summary>
