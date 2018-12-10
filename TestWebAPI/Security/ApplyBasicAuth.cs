@@ -32,7 +32,8 @@ namespace TestWebAPI.Security
                 @in = "header" ,
                 type = "string" ,
                 description = "Client-Version" ,
-                required = true
+                required = true,
+                @default = "3.0"
             });
 
             //add token param
@@ -42,7 +43,8 @@ namespace TestWebAPI.Security
                 @in = "header", //this property must be set to header to indicate how swagger interprets it
                 type = "string",
                 description = "Authentication scheme = 'Token'",
-                required = false
+                required = false,
+                @default = "Token zSdelNJxbaVun3qpiJCQ",
             });
         }
     }
