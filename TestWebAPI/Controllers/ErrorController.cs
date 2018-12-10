@@ -10,6 +10,9 @@ namespace TestWebAPI.Controllers
 {
     public class ErrorController : ApiController
     {
+        /// <summary>
+        /// This method is used for handling requests to invalid urls
+        /// </summary>
         [HttpGet, HttpPost, HttpPut, HttpDelete, AcceptVerbs("PATCH")]
         public IHttpActionResult Handle404()
         {
