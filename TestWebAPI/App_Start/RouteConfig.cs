@@ -15,7 +15,8 @@ namespace TestWebAPI
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            //routes.MapHttpRoute(
+            //does not work as it affects the home route
+            //routes.MapHttpRoute( 
             //name: "Error404",
             //routeTemplate: "",
             //defaults: new { controller = "Error", action = "Handle404" });
