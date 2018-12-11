@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
+using System.Web.Http;
 using System.Web.Http.Description;
 
 namespace TestWebAPI.Security
@@ -25,6 +27,50 @@ namespace TestWebAPI.Security
             if ( operation.parameters == null )
                 operation.parameters = new List<Parameter>();
 
+            //create rolestringbuilder
+            var roleRequirementBuilder = new StringBuilder();
+
+            //get the operation description
+            var originalDescription = operation.description;
+
+            //create filter handler
+            var filterPipeline = apiDescription.ActionDescriptor.GetFilterPipeline().Where(f => f.Scope == System.Web.Http.Filters.FilterScope.Action);
+
+            //get roles
+            var roles = filterPipeline.Select(f => f.Instance).OfType<CustomAuthenticationAttribute>()
+                .Select(a => a.UserTypes).FirstOrDefault();
+
+            roleRequirementBuilder.AppendLine(originalDescription);
+            roleRequirementBuilder.Append("<br/>");
+
+            if (roles == null)
+            {
+                roleRequirementBuilder.AppendLine("**Roles Required: ** None");
+            }
+            else
+            {
+                bool isAdminPresent = false;
+                roleRequirementBuilder.AppendLine("**Roles Required**");
+
+                if (roles.Contains(UserSecurity.UserType.Admin))
+                {
+                    roleRequirementBuilder.AppendLine("Admin");
+                    isAdminPresent = true;
+                }
+
+                if (roles.Contains(UserSecurity.UserType.Customer))
+                {
+                    if (isAdminPresent)
+                    {
+                        roleRequirementBuilder.AppendLine(", Customer");
+                    }
+                    else
+                    {
+                        roleRequirementBuilder.AppendLine("Customer");
+                    }
+                }
+            }
+
             //add another header in swagger
             operation.parameters.Add(new Parameter
             {
@@ -46,6 +92,9 @@ namespace TestWebAPI.Security
                 required = false,
                 @default = "Token zSdelNJxbaVun3qpiJCQ",
             });
+
+            //add the roles in the description
+            operation.description = roleRequirementBuilder.ToString();
         }
     }
 }
