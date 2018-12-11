@@ -13,7 +13,7 @@ using System.Security.Principal;
 
 namespace TestWebAPI.Security
 {
-    public class CustomAuthenticationAttribute : AuthorizationFilterAttribute
+    public class CustomAuthenticationAttribute : AuthorizationFilterAttribute //AuthorizeAttribute
     {
         public UserSecurity.UserType[] UserTypes { get; set; }
 
