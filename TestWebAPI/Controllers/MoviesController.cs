@@ -1,4 +1,5 @@
 ﻿using DataAccess;
+using Swashbuckle.Swagger;
 using Swashbuckle.Examples;
 using Swashbuckle.Swagger.Annotations;
 using System;
@@ -71,6 +72,7 @@ namespace TestWebAPI.Controllers
         /// <returns></returns>
         //[Route("api/Movies/GetStrings")]
         //[Route("api/v1/movies/GetStrings")]
+        [CustomAuthentication(UserSecurity.UserType.Admin)]
         [Route("GetStrings")]
         public List<string> GetStrings()
         {
@@ -82,6 +84,7 @@ namespace TestWebAPI.Controllers
         /// Returns some strings
         /// </summary>
         /// <returns></returns>
+        [CustomAuthentication(UserSecurity.UserType.Customer,UserSecurity.UserType.Admin)]
         [ExceptionFilter]
         //[Route("api/Movies/Calculate")]
         //[Route("api/v1/movies/Calculate")]
