@@ -30,13 +30,13 @@ namespace TestWebAPI.Security
             //create rolestringbuilder
             var roleRequirementBuilder = new StringBuilder();
 
-            //get the operation description
+            //get the current operation description
             var originalDescription = operation.description;
 
             //create filter handler
             var filterPipeline = apiDescription.ActionDescriptor.GetFilterPipeline().Where(f => f.Scope == System.Web.Http.Filters.FilterScope.Action);
 
-            //get roles
+            //get roles object via filter
             var roles = filterPipeline.Select(f => f.Instance).OfType<CustomAuthenticationAttribute>()
                 .Select(a => a.UserTypes).FirstOrDefault();
 
@@ -72,26 +72,26 @@ namespace TestWebAPI.Security
             }
 
             //add another header in swagger
-            operation.parameters.Add(new Parameter
-            {
-                name = "Accept-Version" ,
-                @in = "header" ,
-                type = "string" ,
-                description = "Client-Version" ,
-                required = true,
-                @default = "3.0"
-            });
+            //operation.parameters.Add(new Parameter
+            //{
+            //    name = "Accept-Version" ,
+            //    @in = "header" ,
+            //    type = "string" ,
+            //    description = "Client-Version" ,
+            //    required = true,
+            //    @default = "3.0"
+            //});
 
             //add token param
-            operation.parameters.Add(new Parameter
-            {
-                name = "Authorization",
-                @in = "header", //this property must be set to header to indicate how swagger interprets it
-                type = "string",
-                description = "Authentication scheme = 'Token'",
-                required = false,
-                @default = "Token zSdelNJxbaVun3qpiJCQ",
-            });
+            //operation.parameters.Add(new Parameter
+            //{
+            //    name = "Authorization",
+            //    @in = "header", //this property must be set to header to indicate how swagger interprets it
+            //    type = "string",
+            //    description = "Authentication scheme = 'Token'",
+            //    required = false,
+            //    @default = "Token zSdelNJxbaVun3qpiJCQ",
+            //});
 
             //add the roles in the description
             operation.description = roleRequirementBuilder.ToString();
