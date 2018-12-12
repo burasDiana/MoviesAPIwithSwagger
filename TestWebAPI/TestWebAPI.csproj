@@ -247,6 +247,7 @@
     <Compile Include="Security\ApplyBasicAuth.cs" />
     <Compile Include="Security\CustomAuthenticationAttribute.cs" />
     <Compile Include="Security\ExceptionFilter.cs" />
+    <Compile Include="Security\FilterPathItems.cs" />
     <Compile Include="Security\HashExtension.cs" />
     <Compile Include="Security\MemoryCacher.cs" />
     <Compile Include="Security\TokenHandler.cs" />
