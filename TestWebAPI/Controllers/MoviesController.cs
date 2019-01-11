@@ -240,8 +240,7 @@ namespace TestWebAPI.Controllers
         /// <param name="movie"></param>
         // POST: api/Movies
         [CustomAuthentication]
-        [ResponseType(typeof(Movy))]
-        [SwaggerResponseExample(HttpStatusCode.OK , typeof(MovieExamples))]
+        [SwaggerRequestExample(typeof(Movy), typeof(MovieExamples))]
         public IHttpActionResult PostMovie(Movy movie)
         {
             if (!ModelState.IsValid)
