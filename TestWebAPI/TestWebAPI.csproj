@@ -228,11 +228,13 @@
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
+    <Compile Include="Controllers\MoviesV2Controller.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AuthReturnObject.cs" />
+    <Compile Include="Models\IMovieAppContext.cs" />
     <Compile Include="Models\MovieExamples.cs" />
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Models\MoviePatchRequest.cs" />
@@ -242,6 +244,7 @@
     <Compile Include="Models\ResponseModels\MovieResponseObject.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\Teacher.cs" />
+    <Compile Include="Models\TestWebAPIContext.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\ApplyBasicAuth.cs" />
