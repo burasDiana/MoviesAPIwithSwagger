@@ -167,3 +167,9 @@ D:\Development\testrepo\TestWebAPI\TestWebAPI.Tests\obj\Debug\TestWebAPI.Tests.d
 D:\Development\testrepo\TestWebAPI\TestWebAPI.Tests\obj\Debug\TestWebAPI.Tests.pdb
 D:\Development\testrepo\TestWebAPI\TestWebAPI.Tests\bin\Debug\System.Web.Http.OData.dll
 D:\Development\testrepo\TestWebAPI\TestWebAPI.Tests\bin\Debug\System.Web.Http.OData.xml
+D:\Development\testrepo\TestWebAPI\TestWebAPI.Tests\bin\Debug\EntityFramework.Testing.dll
+D:\Development\testrepo\TestWebAPI\TestWebAPI.Tests\bin\Debug\EntityFramework.Testing.Moq.dll
+D:\Development\testrepo\TestWebAPI\TestWebAPI.Tests\bin\Debug\Moq.dll
+D:\Development\testrepo\TestWebAPI\TestWebAPI.Tests\bin\Debug\EntityFramework.Testing.xml
+D:\Development\testrepo\TestWebAPI\TestWebAPI.Tests\bin\Debug\EntityFramework.Testing.Moq.xml
+D:\Development\testrepo\TestWebAPI\TestWebAPI.Tests\bin\Debug\Moq.xml
