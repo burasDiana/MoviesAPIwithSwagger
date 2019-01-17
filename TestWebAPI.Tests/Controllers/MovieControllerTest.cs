@@ -46,7 +46,7 @@ namespace TestWebAPI.Tests.Controllers
         /// test GetMovies returns a list of 13 movies where the first has the correct title
         /// </summary>
         [TestMethod]
-        public void Should_Return_List_Of_Movies()
+        public void GetMovies_ShouldReturnListOfMovies()
         {
             ////Act
             //var response = controller.GetMovies();
@@ -77,17 +77,63 @@ namespace TestWebAPI.Tests.Controllers
         /// test GetMovie returns the title of the movie object returned matches the one in the database at id = 1
         /// </summary>
         [TestMethod]
-        public void Should_Return_Movie_With_Id()
+        public void GetMovie_ShouldReturnMovieWithId()
         {
-            var controller = new MoviesController(null);
-            //Act
-            var response = controller.GetMovie(1);
-            var contentResult = response as OkNegotiatedContentResult < Movy >;
-            //Assert
-            Assert.IsNotNull(contentResult);
-            Assert.IsNotNull(contentResult.Content);
-            Assert.AreEqual("Star Warts" , contentResult.Content.Title);
+            //var controller = new MoviesController(null);
+            ////Act
+            //var response = controller.GetMovie(1);
+            //var contentResult = response as OkNegotiatedContentResult < Movy >;
+            ////Assert
+            //Assert.IsNotNull(contentResult);
+            //Assert.IsNotNull(contentResult.Content);
+            //Assert.AreEqual("Star Warts" , contentResult.Content.Title);
+
+            //arrange
+            var set = new Mock<DbSet<Movy>>().SetupData(movieDataSet);
+
+            var context = new Mock<MoviesEntities>();
+            context.Setup(c => c.Movies).Returns(set.Object);
+
+            var controller = new MoviesController(context.Object);
+
+            int testMovieId = 1;
+            //act
+            var result = controller.GetMovie(testMovieId) as OkNegotiatedContentResult<Movy>;
+
+            //assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(testMovieId, result.Content.ID);
         }
+
+        [TestMethod]
+        public void GetMovie_ShouldReturnNotFound()
+        {
+            //var controller = new MoviesController(null);
+            ////Act
+            //var response = controller.GetMovie(1);
+            //var contentResult = response as OkNegotiatedContentResult < Movy >;
+            ////Assert
+            //Assert.IsNotNull(contentResult);
+            //Assert.IsNotNull(contentResult.Content);
+            //Assert.AreEqual("Star Warts" , contentResult.Content.Title);
+
+            //arrange
+            var set = new Mock<DbSet<Movy>>().SetupData(movieDataSet);
+
+            var context = new Mock<MoviesEntities>();
+            context.Setup(c => c.Movies).Returns(set.Object);
+
+            var controller = new MoviesController(context.Object);
+
+            int testMovieId = 10;
+            //act
+            var result = controller.GetMovie(testMovieId);
+
+            //assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
+        }
+
         /// <summary>
         ///  test GetMovie returns notfound when the movie does not exist.
         /// </summary>
