@@ -112,11 +112,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\MovieControllerTest.cs" />
-    <Compile Include="Controllers\TestMovieController.cs" />
+    <Compile Include="DatabaseMockTests_Old\TestMovieController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestDBSet.cs" />
-    <Compile Include="TestMovieDbSet.cs" />
-    <Compile Include="TestMovieAppContext.cs" />
+    <Compile Include="DatabaseMockTests_Old\TestDBSet.cs" />
+    <Compile Include="DatabaseMockTests_Old\TestMovieDbSet.cs" />
+    <Compile Include="DatabaseMockTests_Old\TestMovieAppContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
