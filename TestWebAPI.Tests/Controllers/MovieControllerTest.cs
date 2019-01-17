@@ -1,28 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TestWebAPI.Controllers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TestWebAPI;
-using System.Net.Http;
 using System.Web.Http;
 using TestWebAPI.Models;
 using System.Web.Http.Results;
 using DataAccess;
+using Moq;
 
 namespace TestWebAPI.Tests.Controllers
 {
     [TestClass]
     public class MovieControllerTest
     {
-        MoviesController controller;
+        private List<Movy> movieDataSet;
+
         [TestInitialize]
         public void Initialize()
         {
-            //Arrange
-            controller = new MoviesController();
+
+             movieDataSet = new List<Movy>
+            {
+                new Movy
+                {
+                    ID = 1, Genre = "Action", Price = 10, ReleaseDate = Convert.ToDateTime("2001-05-09"),
+                    Title = "John Wick 2"
+                },
+                new Movy
+                {
+                    ID = 2, Genre = "Comedy", Price = 8, ReleaseDate = Convert.ToDateTime("2003-04-10"),
+                    Title = "Deadpool"
+                },
+                new Movy
+                {
+                    ID = 2, Genre = "Drama", Price = 12, ReleaseDate = Convert.ToDateTime("2003-05-10"),
+                    Title = "Snowstorm"
+                }
+
+            };
         }
 
         /// <summary>
@@ -31,16 +48,30 @@ namespace TestWebAPI.Tests.Controllers
         [TestMethod]
         public void Should_Return_List_Of_Movies()
         {
-            //Act
-            var response = controller.GetMovies();
-            Assert.IsNotNull(response);
-            var contentResult = response as IQueryable<Movy>;
-            var movieList = contentResult.ToList();
-            //Assert
-            Assert.IsNotNull(contentResult);
-            Assert.IsTrue(movieList.Count == 13);
-            Assert.AreEqual("Star Warts" , movieList[0].Title);
+            ////Act
+            //var response = controller.GetMovies();
+            //Assert.IsNotNull(response);
+            //var contentResult = response as IQueryable<Movy>;
+            //var movieList = contentResult.ToList();
+            ////Assert
+            //Assert.IsNotNull(contentResult);
+            //Assert.IsTrue(movieList.Count == 13);
+            //Assert.AreEqual("Star Warts" , movieList[0].Title);
 
+            //arrange
+            var set = new Mock<DbSet<Movy>>().SetupData(movieDataSet);
+
+            var context = new Mock<MoviesEntities>();
+            context.Setup(c => c.Movies).Returns(set.Object);
+
+            var controller = new MoviesController(context.Object);
+
+            //act
+            var result = controller.GetMovies().ToList();
+
+            //assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(3,result.Count);
         }
         /// <summary>
         /// test GetMovie returns the title of the movie object returned matches the one in the database at id = 1
@@ -48,7 +79,7 @@ namespace TestWebAPI.Tests.Controllers
         [TestMethod]
         public void Should_Return_Movie_With_Id()
         {
-            
+            var controller = new MoviesController(null);
             //Act
             var response = controller.GetMovie(1);
             var contentResult = response as OkNegotiatedContentResult < Movy >;
@@ -63,7 +94,7 @@ namespace TestWebAPI.Tests.Controllers
         [TestMethod]
         public void Should_Return_Not_Found_Movie()
         {
-           
+            var controller = new MoviesController(null);
             // Act  
             IHttpActionResult actionResult = controller.GetMovie(100);
             // Assert  
@@ -76,7 +107,7 @@ namespace TestWebAPI.Tests.Controllers
         [TestMethod]
         public void Should_Return_Movie_Recommendation()
         {
-            
+            var controller = new MoviesController(null);
             //Act
             var response = controller.GetMovieRecommendation(3);
             var contentResult = response as OkNegotiatedContentResult<MovieRecommendation>;
@@ -94,7 +125,7 @@ namespace TestWebAPI.Tests.Controllers
         [TestMethod]
         public void Should_Return_Not_Found_Recommendation()
         {
-
+            var controller = new MoviesController(null);
             //Act
             IHttpActionResult actionResult = controller.GetMovieRecommendation(1928);
 
@@ -108,7 +139,7 @@ namespace TestWebAPI.Tests.Controllers
         [TestMethod]
         public void Should_Return_Strings()
         {
-
+            var controller = new MoviesController(null);
             //Act
             var response = controller.GetStrings();
 
@@ -123,6 +154,7 @@ namespace TestWebAPI.Tests.Controllers
         [TestMethod]
         public void Should_Throw_DivideBy0_Exception()
         {
+            var controller = new MoviesController(null);
             try
             {
                 //Act
@@ -142,6 +174,7 @@ namespace TestWebAPI.Tests.Controllers
         [TestMethod]
         public void Should_Divide_2_numbers()
         {
+            var controller = new MoviesController(null);
             //Act
             var response = controller.Calculate(10 , 5);
             //Assert
