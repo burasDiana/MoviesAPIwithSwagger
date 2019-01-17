@@ -11,7 +11,7 @@ using TestWebAPI.Models;
 
 namespace TestWebAPI.Tests.Controllers
 {
-    [TestClass]
+   
     public class TestMovieController
     {
         private MoviesV2Controller controller;
