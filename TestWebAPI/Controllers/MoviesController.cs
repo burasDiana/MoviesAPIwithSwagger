@@ -24,7 +24,13 @@ namespace TestWebAPI.Controllers
     {
         private List<string> list;
         //private MoviesModel db = new MoviesModel();
-        private MoviesEntities db = new MoviesEntities();
+        private readonly MoviesEntities db;
+
+        public MoviesController(MoviesEntities context)
+        {
+            db = context;
+        }
+
 
         /// <summary>
         /// Get all movies
