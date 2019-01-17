@@ -162,8 +162,6 @@ namespace TestWebAPI.Controllers
         [Route("{id}")]
         public IHttpActionResult GetMovie(int id)
         {
-            using (MoviesEntities db = new MoviesEntities() )
-            {
                 var movie = db.Movies.FirstOrDefault(m => m.ID == id);
                 if ( movie == null )
                 {
@@ -171,7 +169,6 @@ namespace TestWebAPI.Controllers
                 }
 
                 return Ok(movie);
-            }
             
         }
 
