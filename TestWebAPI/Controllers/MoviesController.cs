@@ -67,6 +67,38 @@ namespace TestWebAPI.Controllers
             return movies.AsQueryable();
         }
 
+        /// <summary>
+        /// Get the movie the user is currently seeing
+        /// </summary>
+        [Route("current")]
+        [AllowAnonymous]
+        public IHttpActionResult GetMovieForUserId(int userId)
+        {
+            var movieId = (from u in db.Users
+                where u.Id == userId
+                           select u.MovieId).FirstOrDefault();
+
+            if (movieId == null)
+            {
+                return Content(HttpStatusCode.NotFound, "User has no movies affiliated.");
+            }
+
+            var movie = db.Movies.FirstOrDefault(m => m.ID == movieId);
+
+            if (movie == null)
+            {
+                return Content(HttpStatusCode.NotFound, "No movie found with id "+ movieId);
+            }
+
+            var result = new MovieResponseObject()
+            {
+                Id = movie.ID, Price = movie.Price, ReleaseDate = movie.ReleaseDate, Genre = movie.Genre,
+                Title = movie.Title
+            };
+
+            return Ok(result);
+        }
+
         //method for getting count of elements from Odata
         //[EnableQuery]
         //public IHttpActionResult GetMovies(ODataQueryOptions<Movy> queryOptions)
