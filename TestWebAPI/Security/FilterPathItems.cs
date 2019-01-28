@@ -36,6 +36,8 @@ namespace TestWebAPI.Security
                     {
                         path.parameters = new List<Parameter>();
 
+                        AddHeadersToPathObject(path);
+
                         path.parameters.Add(
                             new Parameter
                             {
