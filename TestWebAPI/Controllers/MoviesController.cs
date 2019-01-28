@@ -112,9 +112,6 @@ namespace TestWebAPI.Controllers
         /// <summary>
         /// Returns some strings
         /// </summary>
-        /// <returns></returns>
-        //[Route("api/Movies/GetStrings")]
-        //[Route("api/v1/movies/GetStrings")]
         [CustomAuthentication(UserSecurity.UserType.Admin)]
         [Route("GetStrings")]
         public List<string> GetStrings()
@@ -126,11 +123,8 @@ namespace TestWebAPI.Controllers
         /// <summary>
         /// Returns some strings
         /// </summary>
-        /// <returns></returns>
         [CustomAuthentication(UserSecurity.UserType.Customer,UserSecurity.UserType.Admin)]
         [ExceptionFilter]
-        //[Route("api/Movies/Calculate")]
-        //[Route("api/v1/movies/Calculate")]
         [Route("Calculate")]
         public string Calculate(int a, int b)
         {
@@ -140,7 +134,6 @@ namespace TestWebAPI.Controllers
         /// <summary>
         /// Returns current time
         /// </summary>
-        //[Route("api/Movies/GetTime")]
         [Route("GetTime")]
         public HttpResponseMessage GetTime()
         {
@@ -154,12 +147,10 @@ namespace TestWebAPI.Controllers
         /// <param name="id"></param>
         /// <response code="201">Returns the created recommendation</response>
         /// <response code="400">If the movie corresponding to the id is null</response>
-        // GET: api/Movies/GetRecommendation
         [CustomAuthentication(UserSecurity.UserType.Admin, UserSecurity.UserType.Customer)]
         [SwaggerResponse(201, "Returns the created recommendation", typeof(MovieRecommendation))]
         [SwaggerResponse(400 , "If the movie corresponding to the id is null")]
         //[SwaggerResponseExample(HttpStatusCode.OK , typeof(MovieRecommendation))]
-        //[Route("api/Movies/GetMovieRecommendation")]
         [Route("GetMovieRecommendation")]
         public IHttpActionResult GetMovieRecommendation(int id)
         {
@@ -187,7 +178,6 @@ namespace TestWebAPI.Controllers
         /// <summary>
         /// Get a movie by id
         /// </summary>
-        // GET: api/Movies/5
         [CustomAuthentication(UserSecurity.UserType.Admin, UserSecurity.UserType.Customer)]
         [ResponseType(typeof(MovieResponseObject))]
         [SwaggerResponseExample(HttpStatusCode.OK , typeof(MovieExamples))]
@@ -209,7 +199,6 @@ namespace TestWebAPI.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <param name="movie"></param>
-        // PUT: api/Movies/5
         [CustomAuthentication(UserSecurity.UserType.Admin)]
         [HttpPut]
         [Route("")]
