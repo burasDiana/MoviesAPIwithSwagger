@@ -16,12 +16,13 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Username" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Username" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="MovieId" Type="Int32" />
     <NavigationProperty Name="Movy" Relationship="MoviesModel.FK__Users__MovieId__47DBAE45" FromRole="User" ToRole="Movy" />
     <NavigationProperty Name="Tokens" Relationship="MoviesModel.FK__Tokens__UserId__6E01572D" FromRole="User" ToRole="Token" />
+    <Property Name="IsAdmin" Type="Boolean" />
   </EntityType>
   <EntityContainer Name="MoviesEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Movies" EntityType="Self.Movy" />

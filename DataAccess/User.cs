@@ -25,6 +25,7 @@ namespace DataAccess
         public string Password { get; set; }
         public string Email { get; set; }
         public Nullable<int> MovieId { get; set; }
+        public Nullable<bool> IsAdmin { get; set; }
     
         public virtual Movy Movy { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

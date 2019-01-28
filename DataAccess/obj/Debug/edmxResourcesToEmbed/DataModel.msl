@@ -15,6 +15,7 @@
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="MoviesModel.User">
         <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
           <ScalarProperty Name="MovieId" ColumnName="MovieId" />
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Id" ColumnName="Id" />
