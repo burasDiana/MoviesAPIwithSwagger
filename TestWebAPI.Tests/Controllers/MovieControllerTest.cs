@@ -9,6 +9,7 @@ using TestWebAPI.Models;
 using System.Web.Http.Results;
 using DataAccess;
 using Moq;
+using TestWebAPI.Models.ResponseModels;
 
 namespace TestWebAPI.Tests.Controllers
 {
@@ -17,6 +18,7 @@ namespace TestWebAPI.Tests.Controllers
     {
         private Mock<MoviesEntities> context;
         private Mock<DbSet<Movy>> set;
+        private Mock<DbSet<User>> set2;
         private MoviesController controller;
 
         [TestInitialize]
@@ -43,10 +45,18 @@ namespace TestWebAPI.Tests.Controllers
 
             };
 
+            var userDataSet = new List<User>
+            {
+                new User{MovieId = 3, Email = "josh@josh.com", Id = 1, Username = "Josh",Password = "josh123"},
+                new User { Email = "alah@me.com", Id = 2, Username = "Alah",Password = "jalah123"}
+            };
+
             set = new Mock<DbSet<Movy>>().SetupData(movieDataSet);
+            set2 = new Mock<DbSet<User>>().SetupData(userDataSet);
 
             context = new Mock<MoviesEntities>();
             context.Setup(c => c.Movies).Returns(set.Object);
+            context.Setup(c => c.Users).Returns(set2.Object);
 
             controller = new MoviesController(context.Object);
         }
@@ -104,7 +114,36 @@ namespace TestWebAPI.Tests.Controllers
             // Assert  
             Assert.IsNotNull(contentResult);
             Assert.AreEqual(movieTestId, contentResult.Content.ID);
-            Assert.IsTrue(contentResult.Content.recommendedMvs.Count == 1); // recomment drama movie 1
+            Assert.IsTrue(contentResult.Content.recommendedMvs.Count == 1); // recommend drama movie 1
+        }
+
+        [TestMethod]
+        public void GetMovieForUserId_ShouldReturnMovieWithSameId()
+        {
+            //arrange
+            int movieTestId = 3;
+            int userId = 1;
+
+            //Act
+            var response = controller.GetMovieForUserId(userId);
+            var contentResult = response as OkNegotiatedContentResult<MovieResponseObject>;
+
+            // Assert  
+            Assert.IsNotNull(contentResult);
+            Assert.AreEqual(movieTestId, contentResult.Content.Id);
+        }
+
+        [TestMethod]
+        public void GetMovieForUserId_ShouldReturnNotFound()
+        {
+            //arrange
+            int movieTestId = 3;
+            int userId = 2;
+
+            //Act
+            var response = controller.GetMovieForUserId(userId);
+
+            
         }
 
         [TestMethod]
@@ -144,7 +183,7 @@ namespace TestWebAPI.Tests.Controllers
             try
             {
                 //Act
-                var response = controller.Calculate(1 , 0);
+                controller.Calculate(1 , 0);
 
                 //Assert
                 Assert.Fail();
@@ -164,9 +203,11 @@ namespace TestWebAPI.Tests.Controllers
             //Act
             var response = controller.Calculate(10 , 5);
 
+            var expected = 10 / 5;
             //Assert
-            Assert.AreEqual(int.Parse(response) , 2);
+            Assert.AreEqual(expected, int.Parse(response));
         }
+
 
         [TestCleanup]
         public void RemoveDependencies()
