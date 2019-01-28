@@ -329,10 +329,7 @@ namespace TestWebAPI.Controllers
         /// </summary>
         private bool MovieExists(int id)
         {
-            using ( MoviesEntities db = new MoviesEntities() )
-            {
                 return db.Movies.Count(e => e.ID == id) > 0;
-            }
         }
     }
 }
