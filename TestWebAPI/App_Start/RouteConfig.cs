@@ -28,11 +28,11 @@ namespace TestWebAPI
             constraints: null ,
             handler: new RedirectHandler(( message => message.RequestUri.ToString() ) , "swagger"));
 
-            routes.MapRoute(
-                name: "Default" ,
-                url: "{controller}/{action}/{id}" ,
-                defaults: new { controller = "Home" , action = "Index" , id = UrlParameter.Optional }
-            );
+            //routes.MapRoute(
+            //    name: "Default" ,
+            //    url: "{controller}/{action}/{id}" ,
+            //    defaults: new { controller = "Home" , action = "Index" , id = UrlParameter.Optional }
+            //);
         }
     }
 }
