@@ -123,7 +123,8 @@ namespace TestWebAPI.Security
                         int userId =  TokenHandler.GetUserID(authToken);
                         string userName = UserSecurity.GetUserName(userId);
                         Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(userName), null);
-                        if (!UserRole_Allowed(UserSecurity.UserType.Customer))
+
+                        if(!UserSecurity.IsAdminUser(userId) && !UserRole_Allowed(UserSecurity.UserType.Customer)) //if it's not an admin and customer isn't allowed access to a method
                         {
                             actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Forbidden, "You do not have access to this function!");
                         }
