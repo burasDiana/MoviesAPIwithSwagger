@@ -39,7 +39,7 @@ namespace TestWebAPI.Tests.Controllers
                 },
                 new Movy
                 {
-                    ID = 2, Genre = "Drama", Price = 12, ReleaseDate = Convert.ToDateTime("2003-05-10"),
+                    ID = 3, Genre = "Drama", Price = 12, ReleaseDate = Convert.ToDateTime("2003-05-10"),
                     Title = "Snowstorm"
                 }
 
