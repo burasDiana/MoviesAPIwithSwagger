@@ -71,7 +71,7 @@ namespace TestWebAPI.Controllers
         /// Get the movie the user is currently seeing
         /// </summary>
         [Route("current")]
-        [AllowAnonymous]
+        [CustomAuthentication(UserSecurity.UserType.Admin, UserSecurity.UserType.Customer)]
         public IHttpActionResult GetMovieForUserId(int userId)
         {
             var movieId = (from u in db.Users
@@ -155,7 +155,7 @@ namespace TestWebAPI.Controllers
         /// <response code="201">Returns the created recommendation</response>
         /// <response code="400">If the movie corresponding to the id is null</response>
         // GET: api/Movies/GetRecommendation
-        [CustomAuthentication]
+        [CustomAuthentication(UserSecurity.UserType.Admin, UserSecurity.UserType.Customer)]
         [SwaggerResponse(201, "Returns the created recommendation", typeof(MovieRecommendation))]
         [SwaggerResponse(400 , "If the movie corresponding to the id is null")]
         //[SwaggerResponseExample(HttpStatusCode.OK , typeof(MovieRecommendation))]
@@ -188,7 +188,7 @@ namespace TestWebAPI.Controllers
         /// Get a movie by id
         /// </summary>
         // GET: api/Movies/5
-        [CustomAuthentication]
+        [CustomAuthentication(UserSecurity.UserType.Admin, UserSecurity.UserType.Customer)]
         [ResponseType(typeof(MovieResponseObject))]
         [SwaggerResponseExample(HttpStatusCode.OK , typeof(MovieExamples))]
         [Route("{id}")]
@@ -210,12 +210,13 @@ namespace TestWebAPI.Controllers
         /// <param name="id"></param>
         /// <param name="movie"></param>
         // PUT: api/Movies/5
-        [CustomAuthentication]
+        [CustomAuthentication(UserSecurity.UserType.Admin)]
+        [HttpPut]
+        [Route("")]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutMovie(int id, Movy movie)
         {
-            using ( MoviesEntities db = new MoviesEntities() )
-            {
+           
                 if ( !ModelState.IsValid )
                 {
                     return BadRequest(ModelState);
@@ -243,8 +244,6 @@ namespace TestWebAPI.Controllers
                         throw;
                     }
                 }
-            }
-
             return StatusCode(HttpStatusCode.NoContent);
         }
 
@@ -254,7 +253,7 @@ namespace TestWebAPI.Controllers
         /// <param name="id"></param>
         /// <param name="movie"></param>
         // PUT: api/Movies/5
-        [CustomAuthentication(UserSecurity.UserType.Customer)]
+        [CustomAuthentication(UserSecurity.UserType.Admin)]
         [ResponseType(typeof(void))]
         [HttpPatch]
         [Route("{id}")]
@@ -279,7 +278,9 @@ namespace TestWebAPI.Controllers
         /// </summary>
         /// <param name="movie"></param>
         // POST: api/Movies
-        [CustomAuthentication]
+        [HttpPost]
+        [Route("")]
+        [CustomAuthentication(UserSecurity.UserType.Admin)]
         [SwaggerRequestExample(typeof(Movy), typeof(MovieExamples))]
         public IHttpActionResult PostMovie(Movy movie)
         {
@@ -291,7 +292,7 @@ namespace TestWebAPI.Controllers
             db.Movies.Add(movie);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = movie.ID }, movie);
+            return Ok("Success!");
         }
 
         /// <summary>
@@ -299,7 +300,8 @@ namespace TestWebAPI.Controllers
         /// </summary>
         /// <param name="id"></param>
         // DELETE: api/Movies/5
-        [CustomAuthentication]
+        [CustomAuthentication(UserSecurity.UserType.Admin)]
+        [Route("")]
         [ResponseType(typeof(Movy))]
         public IHttpActionResult DeleteMovie(int id)
         {
@@ -312,7 +314,7 @@ namespace TestWebAPI.Controllers
             db.Movies.Remove(movie);
             db.SaveChanges();
 
-            return Ok(movie);
+            return Ok("Removed movie at id" + movie.ID);
         }
 
         protected override void Dispose(bool disposing)
