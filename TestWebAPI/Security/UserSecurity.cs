@@ -26,9 +26,9 @@ namespace TestWebAPI.Security
         /// </summary>
         public static string GetPasswordForUser(string username)
         {
-            using ( MoviesEntities db = new MoviesEntities() )
+            using (MoviesEntities db = new MoviesEntities())
             {
-                return db.Users.FirstOrDefault(u => u.Username.Equals(username , StringComparison.Ordinal)).Password;
+                return db.Users.FirstOrDefault(u => u.Username.Equals(username, StringComparison.Ordinal)).Password;
             }
         }
 
@@ -37,9 +37,9 @@ namespace TestWebAPI.Security
         /// </summary>
         public static bool Login(string username, string password)
         {
-        using(MoviesEntities entities = new MoviesEntities() )
+            using (MoviesEntities entities = new MoviesEntities())
             {
-                return entities.Users.Any(u => u.Username.Equals(username , StringComparison.OrdinalIgnoreCase) && u.Password == password);
+                return entities.Users.Any(u => u.Username.Equals(username, StringComparison.OrdinalIgnoreCase) && u.Password == password);
             }
         }
 
@@ -55,13 +55,31 @@ namespace TestWebAPI.Security
         }
 
         /// <summary>
+        /// Verifies that a user is also an admin
+        /// </summary>
+        public static bool IsAdminUser(int userId)
+        {
+            using (MoviesEntities entities = new MoviesEntities())
+            {
+
+                var isAdmin = entities.Users.FirstOrDefault(u => u.Id.Equals(userId)).IsAdmin;
+
+                if (isAdmin != null && isAdmin.HasValue)
+                {
+                    return isAdmin.Value;
+                }
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Gets the user id based on the user name
         /// </summary>
         public static int GetUserId(string username)
         {
             using (MoviesEntities entities = new MoviesEntities())
             {
-                if(entities.Users.Any(u => u.Username.Equals(username, StringComparison.OrdinalIgnoreCase)))
+                if (entities.Users.Any(u => u.Username.Equals(username, StringComparison.OrdinalIgnoreCase)))
                 {
                     return entities.Users.FirstOrDefault(u => u.Username.Equals(username, StringComparison.OrdinalIgnoreCase)).Id;
                 }
