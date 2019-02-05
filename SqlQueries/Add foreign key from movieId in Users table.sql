@@ -21,6 +21,13 @@ TokenValue VARCHAR(20) PRIMARY KEY,
 UserId INT
 );
 
+CREATE TABLE Tickets (
+Id int identity PRIMARY KEY,
+Ticket_Date datetime,
+Ticket_MovieId int,
+Ticket_UserId int
+);
+
 ALTER TABLE Tokens 
 ADD FOREIGN KEY (UserId) REFERENCES Users(Id)
 
