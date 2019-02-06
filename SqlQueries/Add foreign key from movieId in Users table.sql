@@ -28,6 +28,9 @@ Ticket_MovieId int,
 Ticket_UserId int
 );
 
+ALTER TABLE Tickets
+ADD FOREIGN KEY (Ticket_UserId) REFERENCES Users(Id)
+
 ALTER TABLE Tokens 
 ADD FOREIGN KEY (UserId) REFERENCES Users(Id)
 
