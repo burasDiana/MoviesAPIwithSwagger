@@ -3,6 +3,9 @@ ALTER TABLE dbo.Users
 ADD MovieId INT;
 
 ALTER TABLE dbo.Users 
+DROP MovieId;
+
+ALTER TABLE dbo.Users 
 ADD FOREIGN KEY (MovieId) REFERENCES dbo.Movies(Id);
 
 ALTER TABLE dbo.Users 
