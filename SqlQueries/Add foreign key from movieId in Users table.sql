@@ -51,3 +51,6 @@ Create Table Users
  Insert into Users values ('Alex','123')
  Insert into Users values ('Diana','321')
  Insert into Users values ('John','453')
+Insert into Users values ('Martin','1234')
+ Insert into Users values ('Allan','3214')
+ Insert into Users values ('Pierre','4534')
