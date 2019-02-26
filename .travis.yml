@@ -3,5 +3,5 @@ solution: TestWebAPI.sln
 mono: latest
 install:
  - travis_retry nuget restore -source "https://www.nuget.org/api/v2" ./TestWebAPI/TestWebAPI.sln
-script
+script:
  - xbuild /p:Configuration=Release ./TestWebAPI/TestWebAPI.sln
