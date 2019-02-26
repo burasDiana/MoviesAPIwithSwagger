@@ -226,7 +226,6 @@ D:\Development\testrepo\TestWebAPI\TestWebAPI\bin\roslyn\VBCSCompiler.exe.config
 D:\Development\testrepo\TestWebAPI\TestWebAPI\bin\TestWebAPI.dll.config
 D:\Development\testrepo\TestWebAPI\TestWebAPI\bin\TestWebAPI.XML
 D:\Development\testrepo\TestWebAPI\TestWebAPI\bin\TestWebAPI.dll
-D:\Development\testrepo\TestWebAPI\TestWebAPI\bin\TestWebAPI.pdb
 D:\Development\testrepo\TestWebAPI\TestWebAPI\bin\Antlr3.Runtime.dll
 D:\Development\testrepo\TestWebAPI\TestWebAPI\bin\DataAccess.dll
 D:\Development\testrepo\TestWebAPI\TestWebAPI\bin\EntityFramework.dll
@@ -316,4 +315,3 @@ D:\Development\testrepo\TestWebAPI\TestWebAPI\obj\Debug\TestWebAPI.csprojAssembl
 D:\Development\testrepo\TestWebAPI\TestWebAPI\obj\Debug\TestWebAPI.csproj.CoreCompileInputs.cache
 D:\Development\testrepo\TestWebAPI\TestWebAPI\obj\Debug\TestWebAPI.csproj.CopyComplete
 D:\Development\testrepo\TestWebAPI\TestWebAPI\obj\Debug\TestWebAPI.dll
-D:\Development\testrepo\TestWebAPI\TestWebAPI\obj\Debug\TestWebAPI.pdb
