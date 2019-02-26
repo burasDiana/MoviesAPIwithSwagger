@@ -1,6 +1,7 @@
 language: csharp
 solution: TestWebAPI.sln
 mono: latest
-dotnet: 2.0.0
+install:
+ - travis_retry nuget restore -source "https://www.nuget.org/api/v2" ./TestWebAPI/TestWebAPI.sln
 script
- - msbuild /p:Configuration=Release TestWebAPI.sln
+ - xbuild /p:Configuration=Release ./TestWebAPI/TestWebAPI.sln
