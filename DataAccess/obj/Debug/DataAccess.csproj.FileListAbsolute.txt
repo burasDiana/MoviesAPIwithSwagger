@@ -43,3 +43,4 @@ D:\Development\testrepo\TestWebAPI\DataAccess\obj\Debug\DataAccess.csproj.CoreCo
 D:\Development\testrepo\TestWebAPI\DataAccess\obj\Debug\DataAccess.csproj.CopyComplete
 D:\Development\testrepo\TestWebAPI\DataAccess\obj\Debug\DataAccess.dll
 D:\Development\testrepo\TestWebAPI\DataAccess\obj\Debug\DataAccess.pdb
+D:\Development\testrepo\TestWebAPI\DataAccess\obj\Debug\DataAccess.csprojAssemblyReference.cache
