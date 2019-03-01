@@ -5,7 +5,7 @@
 Clone repository into a local directory:
 
 ```
-git clone https://github.com/burasDiana/MoviesAPIwithSwagger/
+git clone https://github.com/burasDiana/MoviesAPIwithSwagger.git
 ```
 Configure database and connection strings in 'Web.config'
 
