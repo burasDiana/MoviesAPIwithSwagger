@@ -29,6 +29,7 @@ _For more examples and usage, please refer to the [Nunit][https://nunit.org/]._
 
 ## Architecture
 
+![Architecture](https://github.com/burasDiana/MoviesAPIwithSwagger/blob/master/architecture.png)
 
 
 
