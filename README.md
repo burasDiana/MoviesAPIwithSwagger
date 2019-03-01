@@ -2,25 +2,33 @@
 
 ## Installation
 
-Windows:
+Clone repository into a local directory:
 
-```sh
-edit autoexec.bat
 ```
-
-## Usage example
-
-A few motivating and useful examples of how your product can be used. Spice this up with code blocks and potentially more screenshots.
-
-_For more examples and usage, please refer to the [Wiki][wiki]._
-
-## Development setup
-
-Describe how to install all development dependencies and how to run an automated test-suite of some kind.
-
-```sh
-make install
-npm test
+git clone https://github.com/burasDiana/MoviesAPIwithSwagger/
 ```
+Configure database and connection strings in 'Web.config'
+
+Configure a specific portnumber, otherwise defaults to:
+
+```
+56742
+```
+Run Project and navigate to:
+
+```
+localhost:56742
+```
+and you should be redirected to swaggerUI
+
+## Run the tests
+
+In the visual studio IDE, you can click Tests -> Run all
+
+_For more examples and usage, please refer to the [Nunit][https://nunit.org/]._
+
+## Architecture
+
+
 
 
