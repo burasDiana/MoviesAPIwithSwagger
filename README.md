@@ -1,5 +1,7 @@
 # :heart: MoviesAPIwithSwagger
 
+### Build Status [![Build Status](https://travis-ci.org/burasDiana/MoviesAPIwithSwagger.svg?branch=master)](https://travis-ci.org/burasDiana/MoviesAPIwithSwagger)
+
 ## Installation
 
 Clone repository into a local directory:
