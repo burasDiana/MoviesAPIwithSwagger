@@ -7,11 +7,11 @@ using TestWebAPI.Models;
 
 namespace TestWebAPI.Tests
 {
-    class TestMovieDbSet : TestDBSet<Movie>
-    {
-        public override Movie Find(params object[] keyValues)
-        {
-            return this.SingleOrDefault(movie => movie.ID == (int) keyValues.Single());
-        }
-    }
+    //class TestMovieDbSet : TestDBSet<Movie>
+    //{
+    //    public override Movie Find(params object[] keyValues)
+    //    {
+    //        return this.SingleOrDefault(movie => movie.ID == (int) keyValues.Single());
+    //    }
+    //}
 }
