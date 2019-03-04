@@ -6,5 +6,5 @@ install:
   - nuget restore TestWebAPI.sln
 
 script:
-  - msbuild /p:Configuration=Custom TestWebAPI.sln
+  - msbuild /p:Configuration=Test TestWebAPI.sln
   - nunit-console TestWebAPI/TestWebAPI.Tests/bin/Debug/TestWebAPI.Tests.dll
