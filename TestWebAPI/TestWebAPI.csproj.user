@@ -28,7 +28,6 @@
         <WebProjectProperties>
           <StartPageUrl>
           </StartPageUrl>
-		  <DebugType>none</DebugType>
           <StartAction>CurrentPage</StartAction>
           <AspNetDebugging>True</AspNetDebugging>
           <SilverlightDebugging>False</SilverlightDebugging>
