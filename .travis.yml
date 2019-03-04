@@ -7,4 +7,4 @@ install:
 
 script:
   - msbuild /p:Configuration=Test TestWebAPI.sln
-  - nunit-console TestWebAPI/TestWebAPI.Tests/bin/Debug/TestWebAPI.Tests.dll
+  - nunit-console TestWebAPI.Tests/bin/Debug/TestWebAPI.Tests.dll
