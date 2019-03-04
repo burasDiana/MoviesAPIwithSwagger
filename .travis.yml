@@ -4,4 +4,4 @@ mono: latest
 install:
  - travis_retry nuget restore -source "https://www.nuget.org/api/v2" TestWebAPI.sln
 script:
- - msbuild /p:Configuration=Release TestWebAPI.sln
+ - xbuild /p:Configuration=Custom TestWebAPI.sln
