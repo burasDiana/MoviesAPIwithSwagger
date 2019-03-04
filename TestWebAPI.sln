@@ -18,6 +18,7 @@ Global
 		Custom|Any CPU = Custom|Any CPU
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+		Test|Any CPU = Test|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{0C0E5054-A735-4F4A-BC51-2DD781B3A5A7}.Custom|Any CPU.ActiveCfg = Custom|Any CPU
@@ -26,24 +27,32 @@ Global
 		{0C0E5054-A735-4F4A-BC51-2DD781B3A5A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C0E5054-A735-4F4A-BC51-2DD781B3A5A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C0E5054-A735-4F4A-BC51-2DD781B3A5A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C0E5054-A735-4F4A-BC51-2DD781B3A5A7}.Test|Any CPU.ActiveCfg = Test|Any CPU
+		{0C0E5054-A735-4F4A-BC51-2DD781B3A5A7}.Test|Any CPU.Build.0 = Test|Any CPU
 		{FEEB2781-6EC3-4BD5-90C4-EDA1592A9801}.Custom|Any CPU.ActiveCfg = Custom|Any CPU
 		{FEEB2781-6EC3-4BD5-90C4-EDA1592A9801}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FEEB2781-6EC3-4BD5-90C4-EDA1592A9801}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FEEB2781-6EC3-4BD5-90C4-EDA1592A9801}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEEB2781-6EC3-4BD5-90C4-EDA1592A9801}.Test|Any CPU.ActiveCfg = Test|Any CPU
+		{FEEB2781-6EC3-4BD5-90C4-EDA1592A9801}.Test|Any CPU.Build.0 = Test|Any CPU
 		{A9DBF230-972D-47BE-9F7A-2B57D9F5570C}.Custom|Any CPU.ActiveCfg = Custom|Any CPU
 		{A9DBF230-972D-47BE-9F7A-2B57D9F5570C}.Custom|Any CPU.Build.0 = Custom|Any CPU
 		{A9DBF230-972D-47BE-9F7A-2B57D9F5570C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A9DBF230-972D-47BE-9F7A-2B57D9F5570C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9DBF230-972D-47BE-9F7A-2B57D9F5570C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9DBF230-972D-47BE-9F7A-2B57D9F5570C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9DBF230-972D-47BE-9F7A-2B57D9F5570C}.Test|Any CPU.ActiveCfg = Test|Any CPU
+		{A9DBF230-972D-47BE-9F7A-2B57D9F5570C}.Test|Any CPU.Build.0 = Test|Any CPU
 		{A0AE9EB6-754B-49E5-B158-2D3EBF877389}.Custom|Any CPU.ActiveCfg = Custom|Any CPU
 		{A0AE9EB6-754B-49E5-B158-2D3EBF877389}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A0AE9EB6-754B-49E5-B158-2D3EBF877389}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0AE9EB6-754B-49E5-B158-2D3EBF877389}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0AE9EB6-754B-49E5-B158-2D3EBF877389}.Test|Any CPU.ActiveCfg = Test|Any CPU
 		{CAB28AAB-4BDF-4D19-8602-E1C437CB14B1}.Custom|Any CPU.ActiveCfg = Custom|Any CPU
 		{CAB28AAB-4BDF-4D19-8602-E1C437CB14B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CAB28AAB-4BDF-4D19-8602-E1C437CB14B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CAB28AAB-4BDF-4D19-8602-E1C437CB14B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAB28AAB-4BDF-4D19-8602-E1C437CB14B1}.Test|Any CPU.ActiveCfg = Test|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
