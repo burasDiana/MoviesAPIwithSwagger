@@ -1,7 +1,10 @@
 language: csharp
 solution: TestWebAPI.sln
-mono: latest
+
 install:
- - travis_retry nuget restore -source "https://www.nuget.org/api/v2" TestWebAPI.sln
+ # - sudo apt-get install nunit-console
+  - nuget restore TestWebAPI.sln
+
 script:
- - xbuild /p:Configuration=Custom TestWebAPI.sln
+  - msbuild /p:Configuration=Custom TestWebAPI.sln
+  # - nunit-console TestWebAPI/TestWebAPI.Tests/bin/Debug/TestWebAPI.Tests.dll
