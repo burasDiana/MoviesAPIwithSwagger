@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using TestWebAPI.Controllers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Web.Http;
 using TestWebAPI.Models;
 using System.Web.Http.Results;
 using DataAccess;
 using Moq;
+using NUnit.Framework;
+using NUnit.Framework.Internal.Commands;
 using TestWebAPI.Models.ResponseModels;
 
 namespace TestWebAPI.Tests.Controllers
 {
-    [TestClass]
+    [TestFixture]
     public class MovieControllerTest
     {
         private Mock<MoviesEntities> context;
@@ -21,7 +22,7 @@ namespace TestWebAPI.Tests.Controllers
         private Mock<DbSet<User>> set2;
         private MoviesController controller;
 
-        [TestInitialize]
+        [SetUp]
         public void Initialize()
         {
             // setup movie data set to inject in the controller
@@ -61,22 +62,23 @@ namespace TestWebAPI.Tests.Controllers
             controller = new MoviesController(context.Object);
         }
 
-        [TestMethod]
+        [Test]
         public void GetMovies_ShouldReturnListOfMovies()
         {
             //act
-            var result = controller.GetMovies().ToList();
+            var result = controller.GetMovies();
 
+            var expected = 3;
             //assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(3,result.Count);
+            Assert.That(expected,Is.EqualTo(result.ToList().Count));
         }
-       
-        [TestMethod]
+
+        [Test]
         public void GetMovie_ShouldReturnMovieWithId()
         {
             //arrange
-            int testMovieId = 1;
+            const int testMovieId = 1;
 
             //act
             var result = controller.GetMovie(testMovieId) as OkNegotiatedContentResult<Movy>;
@@ -86,7 +88,7 @@ namespace TestWebAPI.Tests.Controllers
             Assert.AreEqual(testMovieId, result.Content.ID);
         }
 
-        [TestMethod]
+        [Test]
         public void GetMovie_ShouldReturnNotFound()
         {
             //arrange
@@ -97,11 +99,10 @@ namespace TestWebAPI.Tests.Controllers
 
             //assert
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
+            Assert.IsInstanceOf<NotFoundResult>(result);
         }
 
-
-        [TestMethod]
+        [Test]
         public void GetMovieRecommendation_ShouldReturnRecommendationForMovieId()
         {
             //arrange
@@ -117,7 +118,7 @@ namespace TestWebAPI.Tests.Controllers
             Assert.IsTrue(contentResult.Content.recommendedMvs.Count == 1); // recommend drama movie 1
         }
 
-        [TestMethod]
+        [Test]
         public void GetMovieForUserId_ShouldReturnMovieWithSameId()
         {
             //arrange
@@ -130,10 +131,10 @@ namespace TestWebAPI.Tests.Controllers
 
             // Assert  
             Assert.IsNotNull(contentResult);
-            Assert.AreEqual(movieTestId, contentResult.Content.Id);
+            Assert.That(movieTestId,Is.EqualTo(contentResult.Content.Id));
         }
 
-        [TestMethod]
+        [Ignore(" ")]
         public void GetMovieForUserId_ShouldReturnNotFound()
         {
             //arrange
@@ -146,7 +147,7 @@ namespace TestWebAPI.Tests.Controllers
             
         }
 
-        [TestMethod]
+        [Test]
         public void GetMovieRecommendation_ShouldReturnNotFound()
         {
             //arrange
@@ -156,11 +157,11 @@ namespace TestWebAPI.Tests.Controllers
             var result = controller.GetMovieRecommendation(recommendationId);
 
             // Assert  
-            Assert.IsInstanceOfType(result , typeof(NotFoundResult));
+            Assert.IsInstanceOf<NotFoundResult>(result);
         }
 
-       
-        [TestMethod]
+
+        [Test]
         public void GetStrings_ShouldReturnStrings()
         {
             //arrange
@@ -170,11 +171,11 @@ namespace TestWebAPI.Tests.Controllers
             var response = controller.GetStrings();
 
             //Assert
-            Assert.IsInstanceOfType(response[1] , typeof(string));
-            Assert.AreEqual(4, response.Count);
+            Assert.IsInstanceOf<string>(response[1]);
+            Assert.That(4, Is.EqualTo(response.Count));
         }
-        
-        [TestMethod]
+
+        [Test]
         public void Calculate_ShouldThrowDivideByZeroException()
         {
             //arrange
@@ -194,7 +195,7 @@ namespace TestWebAPI.Tests.Controllers
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Calculate_ShouldDivideNumbers()
         {
             //arrange
@@ -205,11 +206,11 @@ namespace TestWebAPI.Tests.Controllers
 
             var expected = 10 / 5;
             //Assert
-            Assert.AreEqual(expected, int.Parse(response));
+            Assert.That(expected, Is.EqualTo(int.Parse(response)));
         }
 
 
-        [TestCleanup]
+        [TearDown]
         public void RemoveDependencies()
         {
             controller = null;
