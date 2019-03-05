@@ -1,14 +1,12 @@
-addons:
-  apt:
-    sources:
-    - mono-nightly
-    packages:
-    - mono-devel
-before_install:
-  - git submodule update --init --recursive
 install:
+  - sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+  - sudo apt install apt-transport-https ca-certificates
+  - echo "deb https://download.mono-project.com/repo/ubuntu nightly-trusty main" | sudo tee /etc/apt/sources.list.d/mono-official-nightly.list
+  - echo "deb https://download.mono-project.com/repo/ubuntu preview-trusty main" | sudo tee /etc/apt/sources.list.d/mono-official-preview.list
+  - sudo apt update
+  - sudo apt install mono-complete
   - sudo apt-get install nunit-console
-  #- nuget restore TestWebAPI.sln
+  - nuget restore TestWebAPI.sln
 script:
   - msbuild /p:Configuration=Test TestWebAPI.sln
   - nunit-console TestWebAPI.Tests/bin/Test/TestWebAPI.Tests.dll
