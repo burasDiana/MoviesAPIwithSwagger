@@ -1,6 +1,9 @@
-language: csharp
-solution: TestWebAPI.sln
-
+addons:
+  apt:
+    sources:
+    - mono-nightly
+    packages:
+    - mono-devel
 install:
   - sudo apt-get install nunit-console
   - nuget restore TestWebAPI.sln
