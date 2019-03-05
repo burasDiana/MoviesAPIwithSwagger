@@ -7,9 +7,8 @@ addons:
 before_install:
   - git submodule update --init --recursive
 install:
-  - curl -L -o nuget.exe https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
   - sudo apt-get install nunit-console
-  - mono nuget.exe restore TestWebAPI.sln
+  #- nuget restore TestWebAPI.sln
 script:
-  - xbuild /p:Configuration=Test TestWebAPI.sln
+  - msbuild /p:Configuration=Test TestWebAPI.sln
   - nunit-console TestWebAPI.Tests/bin/Test/TestWebAPI.Tests.dll
