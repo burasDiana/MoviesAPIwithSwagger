@@ -8,7 +8,7 @@ before_install:
   - git submodule update --init --recursive
 install:
   - sudo apt-get install nunit-console
-  - nuget restore TestWebAPI.sln
+  #- nuget restore TestWebAPI.sln
 script:
-  - msbuild /p:Configuration=Test TestWebAPI.sln
+  - xbuild /p:Configuration=Test TestWebAPI.sln
   - nunit-console TestWebAPI.Tests/bin/Test/TestWebAPI.Tests.dll
