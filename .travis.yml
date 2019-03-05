@@ -9,7 +9,7 @@ before_install:
 install:
   - curl -L -o nuget.exe https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
   - sudo apt-get install nunit-console
-  - nuget restore TestWebAPI.sln
+  - mono nuget.exe restore TestWebAPI.sln
 script:
   - xbuild /p:Configuration=Test TestWebAPI.sln
   - nunit-console TestWebAPI.Tests/bin/Test/TestWebAPI.Tests.dll
