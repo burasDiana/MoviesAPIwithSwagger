@@ -11,6 +11,8 @@ git clone https://github.com/burasDiana/MoviesAPIwithSwagger.git
 ```
 Configure database and connection strings in 'Web.config'
 
+Set `TestWebAPI` as current/main project
+
 Configure a specific portnumber, otherwise defaults to:
 
 ```
