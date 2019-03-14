@@ -9,15 +9,13 @@ Clone repository into a local directory:
 ```
 git clone https://github.com/burasDiana/MoviesAPIwithSwagger.git
 ```
-Configure database and connection strings in 'Web.config'
 
-Set `TestWebAPI` as current/main project
+Configure database and connection strings in **Web.config**
 
-Configure a specific portnumber, otherwise defaults to:
+Set **TestWebAPI** as current/main project
 
-```
-56742
-```
+Configure a specific portnumber, otherwise defaults to **56742**
+
 Run Project and navigate to:
 
 ```
