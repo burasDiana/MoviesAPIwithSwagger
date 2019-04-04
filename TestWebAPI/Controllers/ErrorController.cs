@@ -8,6 +8,7 @@ using System.Web.Http;
 
 namespace TestWebAPI.Controllers
 {
+    // This class is used to process custom error cases
     public class ErrorController : ApiController
     {
         /// <summary>
