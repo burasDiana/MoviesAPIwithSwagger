@@ -21,6 +21,7 @@ namespace TestWebAPI.Controllers
     [RoutePrefix("api/v1")]
     public class AuthController : ApiController
     {
+        // code for reseting a password - temporary - only for development
         private static string secretResetCode = "2Gh29F";
 
         /// <summary>
