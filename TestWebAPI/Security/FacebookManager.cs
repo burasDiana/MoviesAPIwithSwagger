@@ -59,6 +59,26 @@ namespace TestWebAPI.Security
             return true;
         }
 
+        
+
+        /// <summary>
+        /// Gets info about a lead (e.g. phone number, email, name, etc.)
+        /// </summary>
+        private static string GetLeadInfo(string id, string accessToken, out bool success)
+        {
+            success = false;
+            var url =
+                $"{FbGraphUrlBase}{id}?access_token={accessToken}"; // example https://graph.facebook.com/v3.2/21435345?access_token=ERASSvfjiewfvmeqpdlxw
+
+            var response = RequestGetResponse(url).First();
+
+            if (response.Key == HttpStatusCode.OK)
+            {
+                success = true;
+            }
+            return response.Value;
+        }
+
         /// <summary>
         /// Sends a web request to a uri and returns a key-value pair with the status code and response body
         /// </summary>
