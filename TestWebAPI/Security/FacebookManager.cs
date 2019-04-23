@@ -59,7 +59,34 @@ namespace TestWebAPI.Security
             return true;
         }
 
-        
+        /// <summary>
+        /// Process lead according to business rules
+        /// </summary>
+        public static void ProcessLead(string lead_id)
+        {
+            bool callSuccess;
+            var leadInfo = GetLeadInfo(lead_id, fbPageToken, out callSuccess);
+
+            if (callSuccess)
+            {
+                var jsonParsed = JObject.Parse(leadInfo);
+                var name = jsonParsed["name"];
+                var email = jsonParsed["email"];
+                var phoneNumber = jsonParsed["phone"];
+                var gender = jsonParsed["gender"];
+
+                if (name != null && phoneNumber !=null && email !=null)
+                {
+                    // process data
+                }
+                
+            }
+            else
+            {
+                //handle call failure
+                HandleBadResponse(leadInfo, "GetLeadInfo returned false");
+            }
+        }
 
         /// <summary>
         /// Gets info about a lead (e.g. phone number, email, name, etc.)
