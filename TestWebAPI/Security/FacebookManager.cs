@@ -17,6 +17,38 @@ namespace TestWebAPI.Security
         private const string descBase = "Facebook webhook: ";
         private static string fbPageToken = "";
 
+        /// <summary>
+        /// This method validates the given user token with the facebook graph api and requests a one time use page token
+        /// </summary>
+        public static bool GetPageAccessToken()
+        {
+            try
+            {
+                // verify authenticity of user by checking the token
+                // if response is 200 OK, token is authentic and valid
+                var urlUserToken =
+                    $"{FbGraphUrlBase}debug_token?input_token={UserAcessToken}&access_token={AppAccessToken}"; // example https://graph.facebook.com/v3.2/debug_token?input_token=EAN2343jnfkwm23eojdm&access_token=ERASSvfjiewfvmeqpdlxw
+
+                var response = RequestGetResponse(urlUserToken).First();
+
+               
+            }
+            catch (WebException e)
+            {
+                var responseContent = "";
+                var description = "";
+                using (WebResponse response = e.Response)
+                {
+                    description = response.ResponseUri.ToString().Contains("debug") ? "User access token error" : "Page access token error";
+                    HttpWebResponse httpResponse = (HttpWebResponse)response;
+                    using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                        responseContent = streamReader.ReadToEnd();
+                }
+                HandleBadResponse(responseContent, description);
+                return false;
+            }
+            return true;
+        }
 
         /// <summary>
         /// Sends a web request to a uri and returns a key-value pair with the status code and response body
