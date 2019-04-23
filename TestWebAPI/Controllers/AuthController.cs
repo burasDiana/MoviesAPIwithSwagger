@@ -30,14 +30,18 @@ namespace TestWebAPI.Controllers
         [HttpGet]
         public IHttpActionResult FacebookWebhook()
         {
+            // verify webhook
             var challenge = HttpContext.Current.Request.Params.Get("hub.challenge");
 
             var token = HttpContext.Current.Request.Params.Get("hub.verify_token");
 
-            if (token == "my_token_verify")
+            if (token != null && token == "my_token_verify")
             {
                 return Ok(challenge);
             }
+
+            //receive data
+
 
             return BadRequest();
         }
