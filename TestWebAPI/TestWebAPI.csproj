@@ -251,13 +251,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\ApplyBasicAuth.cs" />
     <Compile Include="Security\CustomAuthenticationAttribute.cs" />
-    <Compile Include="Security\ExceptionFilter.cs" />
-    <Compile Include="Security\FilterPathItems.cs" />
+    <Compile Include="Filters\ExceptionFilter.cs" />
+    <Compile Include="Filters\FilterPathItems.cs" />
+    <Compile Include="Security\FacebookManager.cs" />
     <Compile Include="Security\HashExtension.cs" />
     <Compile Include="Security\MemoryCacher.cs" />
     <Compile Include="Security\TokenHandler.cs" />
     <Compile Include="Security\UserSecurity.cs" />
-    <Compile Include="Security\VersionFilter.cs" />
+    <Compile Include="Filters\VersionFilter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Movies.mdf" />
