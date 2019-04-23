@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Net.Mail;
 using System.Threading;
 using System.Web;
 using System.Web.Http;
-using System.Web.Http.Results;
 using DataAccess;
-using Microsoft.Data.OData.Query.SemanticAst;
+using Newtonsoft.Json.Linq;
 using TestWebAPI.Models;
 using TestWebAPI.Security;
 
@@ -23,6 +22,7 @@ namespace TestWebAPI.Controllers
     public class AuthController : ApiController
     {
         private static string secretResetCode = "2Gh29F";
+        private static string secretVerifCode = "my_token_verify";
 
         [AllowAnonymous]
         [Route("fbwebhook")]
@@ -35,15 +35,42 @@ namespace TestWebAPI.Controllers
 
             var token = HttpContext.Current.Request.Params.Get("hub.verify_token");
 
-            if (token != null && token == "my_token_verify")
+            if (token != null && token == secretVerifCode)
             {
                 return Ok(challenge);
             }
 
-            //receive data
+            //receive data dump
+            string input = new StreamReader(HttpContext.Current.Request.InputStream).ReadToEnd();
+            var jsonParsed = JObject.Parse(input);
+            var leadInfo = jsonParsed["entry"][0]["changes"][0]["value"];
+
+            if (leadInfo == null)
+            {
+                FacebookManager.SendMailToAdmins("Lead info was null.", "Lead data error");
+                return Ok(); // send a 200 OK to facebook so they do not send the request over and over
+            }
+            if (leadInfo["leadgen_id"] == null)
+            {
+                FacebookManager.SendMailToAdmins("Leadgen_id was null.", "Lead data error");
+                return Ok();
+            }
+
+            var leadId = leadInfo["leadgen_id"].ToString();
+            // var formId = leadInfo["form_id"].ToString();
+            // var adId = leadInfo["ad_id"] != null ? leadInfo["ad_id"].ToString() : " ";
+            // var adGroupId = leadInfo["adgroup_id"] != null ? leadInfo["adgroup_id"].ToString() : " ";
 
 
-            return BadRequest();
+            if (FacebookManager.GetPageAccessToken())
+            {
+                // token verification passed, continue to get info about lead from graph api
+                //process lead data in the system
+                FacebookManager.ProcessLead(leadId);
+                return Ok();
+            }
+
+            return BadRequest(); // make facebook resend the request
         }
 
         /// <summary>
