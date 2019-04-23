@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Mail;
 using System.Threading;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Results;
 using DataAccess;
@@ -22,6 +23,24 @@ namespace TestWebAPI.Controllers
     public class AuthController : ApiController
     {
         private static string secretResetCode = "2Gh29F";
+
+        [AllowAnonymous]
+        [Route("fbwebhook")]
+        [HttpPost]
+        [HttpGet]
+        public IHttpActionResult FacebookWebhook()
+        {
+            var challenge = HttpContext.Current.Request.Params.Get("hub.challenge");
+
+            var token = HttpContext.Current.Request.Params.Get("hub.verify_token");
+
+            if (token == "my_token_verify")
+            {
+                return Ok(challenge);
+            }
+
+            return BadRequest();
+        }
 
         /// <summary>
         ///  Create, store and return a user token
