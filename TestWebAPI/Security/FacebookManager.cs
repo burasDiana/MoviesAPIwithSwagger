@@ -31,7 +31,16 @@ namespace TestWebAPI.Security
 
                 var response = RequestGetResponse(urlUserToken).First();
 
-               
+                // user is valid at this point -> request page token 
+                var urlPageToken = $"{FbGraphUrlBase}me/accounts?access_token={UserAcessToken}"; // example https://graph.facebook.com/v3.2/me/accounts?access_token=ERASSvfjiewfvmeqpdlxw
+
+                var response2 = RequestGetResponse(urlPageToken).First();
+
+                if (response2.Key == HttpStatusCode.OK)
+                {
+                    var responseParsed = JObject.Parse(response2.Value);
+                    fbPageToken = responseParsed["data"][0]["access_token"].ToString();
+                }
             }
             catch (WebException e)
             {
