@@ -33,4 +33,3 @@ _For more examples and usage, or if you want to run the tests from console pleas
 
 ![Architecture](https://github.com/burasDiana/MoviesAPIwithSwagger/blob/master/architecture.png)
 
-test
