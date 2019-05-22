@@ -7,7 +7,8 @@ using System.Web;
 using Newtonsoft.Json.Linq;
 
 namespace TestWebAPI.Security
-{
+{   
+    // This class is used as an http client for Facebook graph api requests
     public class FacebookManager
     {
         private const string FbGraphUrlBase = "https://graph.facebook.com/v3.2/"; //base url for fb graph requests
