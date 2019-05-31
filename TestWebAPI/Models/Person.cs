@@ -5,6 +5,7 @@ using System.Web;
 
 namespace TestWebAPI.Models
 {
+    // This class defines the properties of a person object
     public abstract class Person
     {
         public int Id { get; set; }
