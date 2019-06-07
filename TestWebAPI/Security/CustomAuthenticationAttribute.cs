@@ -12,7 +12,8 @@ using System.Web.Http.Filters;
 using System.Security.Principal;
 
 namespace TestWebAPI.Security
-{
+{   
+    //This class is used to process authentication on a web request
     public class CustomAuthenticationAttribute : AuthorizationFilterAttribute //AuthorizeAttribute
     {
         public UserSecurity.UserType[] UserTypes { get; set; }
