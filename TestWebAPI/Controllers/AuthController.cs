@@ -140,7 +140,7 @@ namespace TestWebAPI.Controllers
         [AllowAnonymous]
         [HttpGet]
         [Route("test")]
-        [Queryable]
+        //[Queryable]
         public IQueryable<Teacher> Get()
         {
             List<Teacher> teachers = new List<Teacher>();
