@@ -14,5 +14,14 @@ namespace TestWebAPI.Models.ResponseModels
         public DateTime? DateRead { get; set; }
     }
 
-  
+    public class ChatMessageCreate
+    {
+        [Required(ErrorMessage = "Receiver id is required")]
+        public int ReceiverId { get; set; }
+
+        [Required(ErrorMessage = "Message is required")]
+        public string Message { get; set; }
+    }
+
+    
 }
