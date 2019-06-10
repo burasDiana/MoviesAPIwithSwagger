@@ -55,6 +55,25 @@ namespace TestWebAPI.Security
         }
 
         /// <summary>
+        /// Gets the device token associated with a user
+        /// </summary>
+        public static string GetDeviceTokenByUserId(int userId,out bool success)
+        {
+            success = false;
+            using (MoviesEntities entities = new MoviesEntities())
+            {
+                var deviceToken = entities.Users.FirstOrDefault(u => u.Id.Equals(userId)).Password;
+
+                if (deviceToken != null)
+                {
+                    success = true;
+                    return deviceToken;
+                }
+                return "";
+            }
+        }
+
+        /// <summary>
         /// Verifies that a user is also an admin
         /// </summary>
         public static bool IsAdminUser(int userId)
