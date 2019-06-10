@@ -23,5 +23,9 @@ namespace TestWebAPI.Models.ResponseModels
         public string Message { get; set; }
     }
 
-    
+    public class ChatMessageResponseModel
+    {
+        public int RelatedUserId { get; set; }
+        public List<ChatMessageModel> Messages { get; set; }
+    }
 }
