@@ -8,5 +8,5 @@ script:
   - nunit-console TestWebAPI.Tests/bin/Test/TestWebAPI.Tests.dll
 branches:
   only:
-    master
-    develop
+  - master
+  - develop
