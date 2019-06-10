@@ -144,7 +144,6 @@ namespace TestWebAPI.Controllers
         /// <summary>
         /// Get recommendations for a movie
         /// </summary>
-        /// <param name="id"></param>
         /// <response code="201">Returns the created recommendation</response>
         /// <response code="400">If the movie corresponding to the id is null</response>
         [CustomAuthentication(UserSecurity.UserType.Admin, UserSecurity.UserType.Customer)]

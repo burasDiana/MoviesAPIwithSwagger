@@ -197,6 +197,8 @@ PublishScripts/
 csx/
 *.build.csdef
 
+# static files
+
 # Microsoft Azure Emulator
 ecf/
 rcf/
