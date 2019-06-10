@@ -302,4 +302,26 @@ namespace TestWebAPI.Controllers
         }
     }
 
+    /// <summary>
+    /// This class contains the filters used to get the data about the chat messages from the database.
+    /// </summary>
+    public class AppChatMessageSearchFilter
+    {
+        public DateTime? DateStart { get; set; }
+
+        public DateTime? DateEnd { get; set; }
+
+        public int? CustomerId { get; set; }
+
+        public int? AdminId { get; set; }
+
+        public int? MaxMessages { get; set; }
+    }
+
+    public class AdminCustomerRelationshipFilter
+    {
+        public int? CustomerId { get; set; }
+
+        public int? AdminId { get; set; }
+    }
 }
