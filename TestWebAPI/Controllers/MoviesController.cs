@@ -50,7 +50,7 @@ namespace TestWebAPI.Controllers
         [CustomAuthentication(UserSecurity.UserType.Customer,UserSecurity.UserType.Admin)]
         //[Route("api/v1/movies")]
         [Route]
-        [Queryable]
+        //[Queryable]
         [SwaggerResponseExample(HttpStatusCode.OK , typeof(MovieExamples))]
         public IQueryable<MovieResponseObject> GetMovies()
         {
