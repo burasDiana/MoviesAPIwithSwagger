@@ -6,7 +6,6 @@ using System.Web;
 
 namespace TestWebAPI.Security
 {
-
     /// <summary>
     /// Helper class for storing values or objects to be used withing the controller methods
     /// </summary>
@@ -21,8 +20,8 @@ namespace TestWebAPI.Security
 
         public static CustomPrincipal CurrentUser
         {
-            get => HttpContext.Current.User as CustomPrincipal;
-            set => HttpContext.Current.User = value;
+            get { return HttpContext.Current.User as CustomPrincipal;}
+            set { HttpContext.Current.User = value; }
         }
         public static string AppVersion { get; set; }
         public static string DeviceToken { get; set; }
@@ -30,7 +29,6 @@ namespace TestWebAPI.Security
         public static bool NewVersionExists { get; set; }
         public static string TokenExpiresIn { get; set; }
         public static string TokenValue { get; set; }
-
     }
 
     /// <summary>
