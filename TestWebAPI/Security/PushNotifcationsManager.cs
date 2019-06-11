@@ -68,7 +68,7 @@ namespace TestWebAPI.Security
             httpWebRequest.Method = "POST";
             httpWebRequest.KeepAlive = true;
             httpWebRequest.Headers.Add("Authorization", "Basic " + AppSettings.OneSignalIOSRestApiKey);
-
+            
             string responseContent = null;
             HttpWebResponse response = null;
 

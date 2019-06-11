@@ -188,8 +188,8 @@ namespace TestWebAPI.Controllers
             //    SenderID = AuthHelper.CurrentUser.Id,
             //};
             // db.save(message)
-
-            string deviceToken = UserSecurity.GetDeviceTokenByUserId(request.ReceiverId, out var success);
+            bool success;
+            string deviceToken = UserSecurity.GetDeviceTokenByUserId(request.ReceiverId, out success);
 
             if (!success)
             {
@@ -217,9 +217,11 @@ namespace TestWebAPI.Controllers
         [CustomAuthentication(UserSecurity.UserType.Admin, UserSecurity.UserType.Customer)]
         public IHttpActionResult PostPushNotifications(ChatMessageCreate request)
         {
-            var deviceToken = UserSecurity.GetDeviceTokenByUserId(AuthHelper.CurrentUser.Id, out var success1); //Authentication.GetDeviceTokenBySessionToken(AuthHelper.TokenValue);
+            bool success1;
+            bool success;
+            var deviceToken = UserSecurity.GetDeviceTokenByUserId(AuthHelper.CurrentUser.Id, out  success1); //Authentication.GetDeviceTokenBySessionToken(AuthHelper.TokenValue);
             var platform = "bbbbb"; //TODO implement this => Authentication.GetPlatformBySessionToken(AuthHelper.TokenValue);
-            PushNotifcationsManager.SendPushNotificationToMobileDevice(deviceToken, request.Message, platform, out var success);
+            PushNotifcationsManager.SendPushNotificationToMobileDevice(deviceToken, request.Message, platform, out  success);
             if (success)
             {
                 return Ok("Success");
@@ -239,7 +241,8 @@ namespace TestWebAPI.Controllers
         /// </summary>
         private bool CreatePushNotification(string message, string platform, string deviceToken)
         {
-            PushNotifcationsManager.SendPushNotificationToMobileDevice(deviceToken, message, platform, out var success);
+            bool success;
+            PushNotifcationsManager.SendPushNotificationToMobileDevice(deviceToken, message, platform, out  success);
             return success;
         }
 
