@@ -5,6 +5,7 @@ using System.Web;
 
 namespace TestWebAPI.Models
 {
+    // this class is used to return authentication details
     public class AuthReturnObject
     {
         public string TokenValue { get; set; }
