@@ -8,7 +8,8 @@ using Newtonsoft.Json.Linq;
 using System.Web.Script.Serialization;
 
 namespace TestWebAPI.Security
-{
+{   
+    //this class is used to set different application variables
     public class AppSettings
     {
         // OneSignal
