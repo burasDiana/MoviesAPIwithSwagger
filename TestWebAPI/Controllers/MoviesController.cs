@@ -18,6 +18,8 @@ using TestWebAPI.Security;
 
 namespace TestWebAPI.Controllers
 {   
+
+    //endpoints for CRUD operations on movies
     [VersionFilter]
     [RoutePrefix("api/v1/movies")]
     public class MoviesController : ApiController
